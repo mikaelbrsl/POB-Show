@@ -1,7 +1,7 @@
 # Projeto da cadeira de Persistência de Objetos(POB)
 *  **Curso:** Tecnólogo em Sistemas para Internet(cstsi)
 *  **Membros:**
-*  *  Erick Felipe
+   *  Erick Felipe
    *  Mikael de Moura
    *  Melquisedeque Vital
 *  **Objetivo:** Praticar a criação de classes e a persistência dos objetos na memória usando diferentes tecnologias em cada etapa
