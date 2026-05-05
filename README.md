@@ -31,6 +31,7 @@
 ### 1º Etapa: db4o
 
 *  Etapa realizada utilizando db4o para fazer a persistência
+*  Utilização do SODA(Simple Object Database Acess) e de Filtros Customizados para realizar as consultas
 *  Realese feito
 
 ### 2º Etapa: JPA
