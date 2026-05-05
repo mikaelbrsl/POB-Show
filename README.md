@@ -10,10 +10,10 @@
 
 ## Descrição do Modelo de Classes(Sistema de Shows)
 
-Sistema que gerencia shows que ocorrem em cidades com seus devidos artistas
-Cada show só pode ocorrer em uma cidade com um artista
-Cada artista pode ter vários shows agendados
-Cada cidade pode ter vários shows agendados
+*  Sistema que gerencia shows que ocorrem em cidades com seus devidos artistas
+*  Cada show só pode ocorrer em uma cidade com um artista
+*  Cada artista pode ter vários shows agendados
+*  Cada cidade pode ter vários shows agendados
 
 ### Diagrama UML
 
