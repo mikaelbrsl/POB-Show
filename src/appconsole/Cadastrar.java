@@ -1,97 +1,90 @@
+/**********************************
+ * IFPB - SI
+ * POB - Persistencia de Objetos
+ * Prof. Fausto Ayres
+ **********************************/
+
 package appconsole;
 
-/**
- * ********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet POB - Persistencia de
- * Objetos Prof. Fausto Ayres
- *
- */
+import java.util.List;
 
-import java.util.ArrayList;
-import com.db4o.ObjectContainer;
-import modelo.Artista;
-import modelo.Cidade;
-import modelo.Show;
+import jakarta.persistence.EntityManager;
+import modelo.Aluno;
+import modelo.Pessoa;
+import modelo.Telefone;
 import util.Util;
 
 public class Cadastrar {
+	private EntityManager manager;
+	
+	public Cadastrar() {
+		try {
+			Util.conectar();
+			manager = Util.getManager();
+			
+			System.out.println("Cadastrando pessoas, alunos e telefones...");
+			Pessoa p;
+			
+			// Cadastrando pessoas
+			manager.getTransaction().begin();
+			p = new Pessoa("joao");
+			p.setDtnascimento("01/01/1980");
+			p.adicionar(new Telefone("988881111"));
+			p.adicionar(new Telefone("988882222"));
+			p.setApelidos(List.of("jo", "joaozinho")  );
+			manager.persist(p);
+			manager.getTransaction().commit();
+			
+			manager.getTransaction().begin();
+			p = new Pessoa("maria");
+			p.setDtnascimento("02/02/1980");
+			p.adicionar(new Telefone("988883333"));
+			p.adicionar(new Telefone("988884444"));
+			p.adicionar(new Telefone("32470000"));
+			p.setApelidos(List.of("mary", "mar")  );
+			manager.persist(p);
+			manager.getTransaction().commit();
 
-    private ObjectContainer manager;
+			manager.getTransaction().begin();
+			p = new Pessoa("jose");
+			p.setDtnascimento("01/01/1990");
+			p.adicionar(new Telefone("988885555"));
+			p.setApelidos(List.of("ze","jo")  );
+			manager.persist(p);
+			manager.getTransaction().commit();
 
-    public Cadastrar() {
-        Util.conectar();
-        manager = Util.getManager();
-        System.out.println("Cadastrando cidades, artistas e shows...");
+			
+			// Cadastrando alunos
+			manager.getTransaction().begin();
+			p = new Aluno("paulo",9);
+			p.setDtnascimento("02/02/1990");
+			p.adicionar(new Telefone("988886666"));
+			p.setApelidos(List.of("paulao")  );
+			manager.persist(p);
+			manager.getTransaction().commit();
+			
+			manager.getTransaction().begin();
+			p = new Aluno("ana",10);
+			p.setDtnascimento("02/02/1990");
+			p.adicionar(new Telefone("988887777"));
+			p.setApelidos(List.of("aninha")  );
+			manager.persist(p);
+			manager.getTransaction().commit();
+		}
+		catch (Exception e) {
+			manager.getTransaction().rollback();
+			System.out.println(e.getMessage());
+		}
 
-   
-        Cidade c1 = new Cidade("João Pessoa", new ArrayList<Show>());
-        Cidade c2 = new Cidade("Campina Grande", new ArrayList<Show>());
-        Cidade c3 = new Cidade("Recife", new ArrayList<Show>());
-        Cidade c4 = new Cidade("Natal", new ArrayList<Show>());
-        Cidade c5 = new Cidade("Recife", new ArrayList<Show>());
 
-     
-        Artista a1 = new Artista("Alok", new ArrayList<Show>());
-        Artista a2 = new Artista("Anitta", new ArrayList<Show>());
-        Artista a3 = new Artista("Anderson Neiff", new ArrayList<Show>());
-        Artista a4 = new Artista("Ivete Sangalo", new ArrayList<Show>());
-        Artista a5 = new Artista("Luan Santana", new ArrayList<Show>());
-        
+		Util.desconectar();
+		System.out.println("fim do programa");
+	}
 
-        Show s1 = new Show("20/05/2026", c1, a1);
-		a1.adicionar(s1); c1.adicionar(s1);
 
-		Show s2 = new Show("21/05/2026", c1, a2);
-		a2.adicionar(s2); c1.adicionar(s2);
+	// =================================================
+	public static void main(String[] args) {
+		new Cadastrar();
+	}
 
-		Show s3 = new Show("10/06/2026", c2, a1);
-		a1.adicionar(s3); c2.adicionar(s3);
-
-		Show s4 = new Show("12/06/2026", c2, a4);
-		a4.adicionar(s4); c2.adicionar(s4);
-
-		Show s5 = new Show("05/07/2026", c3, a3);
-		a3.adicionar(s5); c3.adicionar(s5);
-
-		Show s6 = new Show("05/07/2026", c3, a2);
-		a2.adicionar(s6); c3.adicionar(s6);
-
-		Show s7 = new Show("15/08/2026", c4, a4);
-		a4.adicionar(s7); c4.adicionar(s7);
-
-		Show s8 = new Show("16/08/2026", c4, a3);
-		a3.adicionar(s8); c4.adicionar(s8);
-		
-		Show s9 = new Show("17/08/2026", c4, a5);
-		a5.adicionar(s9); c4.adicionar(s9);
-		
-		Show s10 = new Show("18/08/2026", c4, a5);
-		a5.adicionar(s10); c4.adicionar(s10);
-		
-		Show s11 = new Show("19/08/2026", c4, a3);
-		a3.adicionar(s11); c4.adicionar(s11);
-
-        manager.store(s1); 
-        manager.store(s2); 
-        manager.store(s3); 
-        manager.store(s4);
-        manager.store(s5); 
-        manager.store(s6); 
-        manager.store(s7); 
-        manager.store(s8);
-        manager.store(s9);
-        manager.store(s10);
-        manager.store(s11);
-
-        manager.store(c5);
-
-        manager.commit();
-        Util.desconectar();
-        System.out.println("fim da appconsole");
-    }
-
-    //=================================================
-    public static void main(String[] args) {
-        new Cadastrar();
-    }
 }

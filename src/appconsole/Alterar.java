@@ -1,98 +1,65 @@
-package appconsole;
 /**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
+ * IFPB - SI
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
- *
- */
+ **********************************/
 
-import java.util.List;
+package appconsole;
 
-import com.db4o.ObjectContainer;
-import com.db4o.query.Query;
-
-import modelo.Artista;
-import modelo.Cidade;
-import modelo.Show;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.TypedQuery;
+import modelo.Pessoa;
+import modelo.Telefone;
 import util.Util;
 
-
 public class Alterar {
-	private ObjectContainer manager;
+	private EntityManager manager;
 
-	public Alterar(){
-		Util.conectar();
-		manager = Util.getManager();
-		
-		// removendo relacionamento entre Show 1 e artista 1
-		
-//		Query q = manager.query();
-//		q.constrain(Show.class);
-//		q.descend("id").constrain(1);
-//		List<Show> resultados = q.execute();
-//		
-//		
-//		if (resultados.size() > 0) {
-//			Show show = resultados.getFirst();
-//			
-//			System.out.println("Show " + show.getId() + " encontrado." );
-//			
-//			Cidade cidade = show.getCidade();
-//			Artista artista = show.getArtista();
-//			show.remover(artista);
-//			show.remover(cidade);
-//						
-//			if(artista.getListaDeShow().isEmpty()) {
-//				manager.delete(artista);
-//				System.out.println("Artista apagado por nÃ£o ter Shows agendados -- Ã“rfÃ£o");
-//			} else
-//				manager.store(artista);
-//			manager.delete(show);
-//			
-//			manager.commit();
-//			System.out.println("Show cancelado.");
-//			} else
-//				System.out.println("Artista nÃ£o encontrado no Show.");
-		
-		// alterando cidade do show 1 para Recife
-		
-		Query q = manager.query();
-		q.constrain(Show.class);
-		q.descend("id").constrain(1);
-		List<Show> resultados = q.execute();
-		
-		if (resultados.size() > 0) {
-			Show show = resultados.getFirst();
+	public Alterar() {
+		try {
+			Util.conectar();
+			manager = Util.getManager();
+
+			manager.getTransaction().begin();
+			TypedQuery<Pessoa> q = manager.createQuery(
+					"select p from Pessoa p where p.nome = 'joao' ", Pessoa.class);
+			Pessoa p = q.getSingleResult();
+
+			p.setNome("joana");
+			Telefone t = p.getTelefones().getLast(); 
+			p.remover(t);  	//bidirecional		
 			
-			System.out.println("Show " + show.getId() + " encontrado." );
+			//manager.merge(p); //nao necessita de atualização (é automatico)
+			//manager.merge(t); //nao necessita de atualização (é automatico)
+			manager.getTransaction().commit();
+
+			System.out.println("alterou nome para joana");
+			System.out.println("removeu ultimo telefone ");
 			
-			Cidade cidade = show.getCidade();
-			
-			q = manager.query();
-			q.constrain(Cidade.class);
-			q.descend("nome").constrain("Recife");
-			List<Cidade> resultados2 = q.execute();
-			
-			if (resultados2.size() > 0) {
-				Cidade novaCidade = resultados2.getFirst();
-				show.remover(cidade);
-				show.adicionar(novaCidade);
-				
-			manager.store(show);
-				
-				manager.store(show);
-				System.out.println("Show " + show.getId() + " alterado para cidade " + novaCidade.getNome());
-			} else
-				System.out.println("Cidade 'Recife' nÃ£o encontrada.");
-		
-		
+		} 
+		catch (NonUniqueResultException e) {
+			manager.getTransaction().rollback();
+			System.out.println("encontrou nome duplicado no banco ");
+		}
+		catch (NoResultException e) {
+			manager.getTransaction().rollback();
+			System.out.println("nao encontrou nome no banco ");
+		}
+		catch (Exception e) {
+			manager.getTransaction().rollback();
+			System.out.println(e.getMessage());
+		}
+
+
 		Util.desconectar();
-		System.out.println("\n\n aviso: feche sempre o plugin OME antes de executar aplicaï¿½ï¿½o");
+		System.out.println("fim do programa");
 	}
-	}
-	//=================================================
+
+	// =================================================
 	public static void main(String[] args) {
 		new Alterar();
 	}
-}
 
+}
