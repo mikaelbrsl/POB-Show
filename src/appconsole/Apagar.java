@@ -8,9 +8,6 @@ package appconsole;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NonUniqueResultException;
-import jakarta.persistence.TypedQuery;
-import modelo.Pessoa;
-import modelo.Telefone;
 import util.Util;
 
 public class Apagar {
@@ -21,25 +18,25 @@ public class Apagar {
 			Util.conectar();
 			manager = Util.getManager();
 			
-			System.out.println("tarefa: deletar joana e seus telefones - orfaos");
+			// System.out.println("tarefa: deletar joana e seus telefones - orfaos");
 			
-			manager.getTransaction().begin();
-			TypedQuery<Pessoa> q = manager.createQuery(
-					"select p from Pessoa p where p.nome = 'joana' ", Pessoa.class);
-			Pessoa joana = q.getSingleResultOrNull();
-			if(joana == null) {
-				System.out.println("nome inexistente no banco");
-				return;
-			}
+			// manager.getTransaction().begin();
+			// TypedQuery<Pessoa> q = manager.createQuery(
+			// 		"select p from Pessoa p where p.nome = 'joana' ", Pessoa.class);
+			// Pessoa joana = q.getSingleResultOrNull();
+			// if(joana == null) {
+			// 	System.out.println("nome inexistente no banco");
+			// 	return;
+			// }
 			
-			joana.getApelidos().clear(); //remover apelidos
-			for(Telefone t : joana.getTelefones()) {
-				t.setPessoa(null); 	
-			}
-			manager.remove(joana);	//deletar joana - telefones orfaos serao deletados
-			manager.getTransaction().commit();
+			// joana.getApelidos().clear(); //remover apelidos
+			// for(Telefone t : joana.getTelefones()) {
+			// 	t.setPessoa(null); 	
+			// }
+			// manager.remove(joana);	//deletar joana - telefones orfaos serao deletados
+			// manager.getTransaction().commit();
 			
-			System.out.println("deletou com sucesso");
+			// System.out.println("deletou com sucesso");
 		
 		} catch (NonUniqueResultException e) {
 			manager.getTransaction().rollback();

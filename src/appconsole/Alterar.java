@@ -9,9 +9,6 @@ package appconsole;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
-import jakarta.persistence.TypedQuery;
-import modelo.Pessoa;
-import modelo.Telefone;
 import util.Util;
 
 public class Alterar {
@@ -22,21 +19,21 @@ public class Alterar {
 			Util.conectar();
 			manager = Util.getManager();
 
-			manager.getTransaction().begin();
-			TypedQuery<Pessoa> q = manager.createQuery(
-					"select p from Pessoa p where p.nome = 'joao' ", Pessoa.class);
-			Pessoa p = q.getSingleResult();
+			// manager.getTransaction().begin();
+			// TypedQuery<Pessoa> q = manager.createQuery(
+			// 		"select p from Pessoa p where p.nome = 'joao' ", Pessoa.class);
+			// Pessoa p = q.getSingleResult();
 
-			p.setNome("joana");
-			Telefone t = p.getTelefones().getLast(); 
-			p.remover(t);  	//bidirecional		
+			// p.setNome("joana");
+			// Telefone t = p.getTelefones().getLast(); 
+			// p.remover(t);  			
 			
-			//manager.merge(p); //nao necessita de atualização (é automatico)
-			//manager.merge(t); //nao necessita de atualização (é automatico)
-			manager.getTransaction().commit();
+			//manager.merge(p); //nao necessita de atualizaï¿½ï¿½o (ï¿½ automatico)
+			//manager.merge(t); //nao necessita de atualizaï¿½ï¿½o (ï¿½ automatico)
+			// manager.getTransaction().commit();
 
-			System.out.println("alterou nome para joana");
-			System.out.println("removeu ultimo telefone ");
+			// System.out.println("alterou nome para joana");
+			// System.out.println("removeu ultimo telefone ");
 			
 		} 
 		catch (NonUniqueResultException e) {
