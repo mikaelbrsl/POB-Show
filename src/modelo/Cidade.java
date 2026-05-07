@@ -1,7 +1,6 @@
 package modelo;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -19,7 +18,7 @@ public class Cidade{
 
     @Column(nullable=false)
     private String nome;
-    
+
     @OneToMany(mappedBy = "cidade", 
     cascade={CascadeType.PERSIST, CascadeType.MERGE}, 
     orphanRemoval=true
@@ -28,7 +27,7 @@ public class Cidade{
 
     public Cidade () {}
     
-    public Cidade(String nome, ArrayList<Show> listaDeShow) {
+    public Cidade(String nome, List<Show> listaDeShow) {
         this.nome = nome;
         this.listaDeShow = listaDeShow;
     }
@@ -67,7 +66,7 @@ public class Cidade{
         return listaDeShow;
     }
 
-    public void setListaDeShow(ArrayList<Show> listaDeShow) {
+    public void setListaDeShow(List<Show> listaDeShow) {
         this.listaDeShow = listaDeShow;
     }
 

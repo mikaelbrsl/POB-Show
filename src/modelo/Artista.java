@@ -1,6 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -30,7 +29,7 @@ public class Artista {
     public Artista() {
     }
 
-    public Artista(String nomeArstitico, ArrayList<Show> listaDeShow) {
+    public Artista(String nomeArstitico, List<Show> listaDeShow) {
         this.nomeArtistico = nomeArstitico;
         this.listaDeShow = listaDeShow;
     }
@@ -47,7 +46,7 @@ public class Artista {
         return listaDeShow;
     }
 
-    public void setListaDeShow(ArrayList<Show> listaDeShow) {
+    public void setListaDeShow(List<Show> listaDeShow) {
         this.listaDeShow = listaDeShow;
     }
 
