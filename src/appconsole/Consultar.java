@@ -17,6 +17,22 @@ public class Consultar {
             Util.conectar();
             manager = Util.getManager();
 
+            
+
+            
+
+
+             // List<Pessoa> pessoas;
+                // TypedQuery<Pessoa> q1;
+                // TypedQuery<Long> q2;
+                // System.out.println("\n--- pessoas em ordem alfabetica ");
+                // q1 = manager.createQuery("""
+                // 		select  p from Pessoa p order by p.nome""",
+                // 		Pessoa.class);
+                // pessoas = q1.getResultList();
+                // for (Pessoa p : pessoas) System.out.println(p);
+
+           
             //db4o(codigo antigo)
 
             // System.out.println("\n---quais os shows na data 05/07/2026");
@@ -77,15 +93,7 @@ public class Consultar {
                 // CODIGO FAUSTO JPA
 
 
-                // List<Pessoa> pessoas;
-                // TypedQuery<Pessoa> q1;
-                // TypedQuery<Long> q2;
-                // System.out.println("\n--- pessoas em ordem alfabetica ");
-                // q1 = manager.createQuery("""
-                // 		select  p from Pessoa p order by p.nome""",
-                // 		Pessoa.class);
-                // pessoas = q1.getResultList();
-                // for (Pessoa p : pessoas) System.out.println(p);
+               
                 // System.out.println("\n--- pessoas nascidas no mes 02");
                 // q1 = manager.createQuery("""
                 // 		select p from Pessoa p where extract(month from dtnascimento) = :mes""", 

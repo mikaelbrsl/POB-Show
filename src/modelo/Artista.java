@@ -10,19 +10,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-@Entity(name="artista20241370035")
+@Entity(name = "artista20241370035")
 public class Artista {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String nomeArtistico;
 
-    @OneToMany(mappedBy = "artista", 
-    cascade = {CascadeType.PERSIST, CascadeType.MERGE}, 
-    orphanRemoval=true
+    @OneToMany(mappedBy = "artista",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            orphanRemoval = true
     )
     private List<Show> listaDeShow;
 
@@ -69,17 +69,33 @@ public class Artista {
 
     @Override
     public String toString() {
-        String texto = "Nome: " + nomeArtistico + " | Shows agendados: ";
+
         if (listaDeShow.isEmpty()) {
-            texto += "Sem Shows"; 
-        }else {
-            for (Show s : listaDeShow) {
-                if (s != null) {
-                    texto += s.getId() + ", ";
-                }
-            }
+            return "Sem Shows";
         }
 
-        return texto;
+
+        boolean primeiroShowAdicionado = true;
+        StringBuilder texto = new StringBuilder();
+        texto.append("Nome: ")
+            .append(nomeArtistico)
+            .append("| Shows agendados: ");
+
+        for (Show s : listaDeShow) {
+        if (s != null) {
+            if (!primeiroShowAdicionado) {
+                texto.append(", ");
+            }
+
+            texto.append("[Id: ")
+                .append(s.getId())
+                .append(", Cidade: ").append(s.getCidade().getNome())
+                .append(", Data: ").append(s.getData())
+                .append("]");
+            
+            primeiroShowAdicionado = false;
+        }
+    }
+        return texto.toString();
     }
 }
