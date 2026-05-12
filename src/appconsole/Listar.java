@@ -6,7 +6,13 @@
 package appconsole;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import modelo.Artista;
+import modelo.Cidade;
+import modelo.Show;
 import util.Util;
+
+import java.util.List;
 
 public class Listar {
 
@@ -17,51 +23,24 @@ public class Listar {
             Util.conectar();
             manager = Util.getManager();
 
-            //db4o(CODIGO ANTIGO)
+            System.out.println("\nListagem de pessoas");
+             TypedQuery<Artista> query1 = manager.createQuery("select a from artista20241370035 a", Artista.class); // order by p.nome
+             List<Artista> resultados1 = query1.getResultList();
+             for (Artista a : resultados1)
+             	System.out.println(a);
 
-            // System.out.println("\n--- LISTAGEM DE CIDADES ---");
-            // Query q = manager.query();
-            // q.constrain(Cidade.class);
-            // List<Cidade> cidades = q.execute();
-            // for (Cidade c : cidades) {
-            //     System.out.println(c);
-            // }
+            System.out.println("\nListagem de Cidades");
+            TypedQuery<Cidade> query2 = manager.createQuery("select c from cidade20241370035 c", Cidade.class); // order by p.nome
+            List<Cidade> resultados2 = query2.getResultList();
+            for (Cidade c : resultados2)
+                System.out.println(c);
 
-            // System.out.println("\n--- LISTAGEM DE ARTISTAS ---");
-            // q = manager.query();
-            // q.constrain(Artista.class);
-            // List<Artista> artistas = q.execute();
-            // for (Artista a : artistas) {
-            //     System.out.println(a);
-            // }
+            System.out.println("\nListagem de Shows");
+            TypedQuery<Show> query3 = manager.createQuery("select s from show20241370035 s", Show.class); // order by p.nome
+            List<Show> resultados3 = query3.getResultList();
+            for (Show s : resultados3)
+                System.out.println(s);
 
-            // System.out.println("\n--- LISTAGEM DE SHOWS ---");
-            // q = manager.query();
-            // q.constrain(Show.class);
-            // List<Show> shows = q.execute();
-            // for (Show s : shows) {
-            //     System.out.println(s);
-            // }
-
-
-
-            // CODIGO FAUSTO JPA
-			
-            // System.out.println("\nListagem de pessoas");
-            // TypedQuery<Pessoa> query1 = manager.createQuery("select p from Pessoa p", Pessoa.class); // order by p.nome
-            // List<Pessoa> resultados1 = query1.getResultList();
-            // for (Pessoa p : resultados1)
-            // 	System.out.println(p);
-            // System.out.println("\nListagem de alunos");
-            // TypedQuery<Aluno> query2 = manager.createQuery("select a from Aluno a", Aluno.class); // order by p.nome
-            // List<Aluno> resultados2 = query2.getResultList();
-            // for (Aluno p : resultados2)
-            // 	System.out.println(p);
-            // System.out.println("\nListagem de telefones");
-            // TypedQuery<Telefone> query3 = manager.createQuery("select t from Telefone t order by t.id", Telefone.class); // order by p.nome
-            // List<Telefone> resultados3 = query3.getResultList();
-            // for (Telefone t : resultados3)
-            // 	System.out.println(t);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

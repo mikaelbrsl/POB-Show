@@ -22,7 +22,7 @@ public class Cidade {
 
     @OneToMany(mappedBy = "cidade",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            orphanRemoval = true
+            orphanRemoval = false
     )
     private List<Show> listaDeShow;
 
