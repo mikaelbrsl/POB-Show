@@ -92,6 +92,8 @@ public class Cadastrar {
             a3.adicionar(s11);
             manager.persist(s11);
 
+            manager.persist(c5);
+
             manager.getTransaction().commit();
 
         } catch (Exception e) {
