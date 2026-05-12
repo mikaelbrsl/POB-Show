@@ -82,7 +82,7 @@ public class Cidade {
     @Override
     public String toString() {
         if (listaDeShow.isEmpty()) {
-            return "Sem Shows";
+            return "Nome: " + this.nome + " | Sem Shows";
         }
 
 
@@ -90,7 +90,7 @@ public class Cidade {
         StringBuilder texto = new StringBuilder();
         texto.append("Nome: ")
             .append(this.nome)
-            .append("| Shows agendados: ");
+            .append(" | Shows agendados: ");
 
         for (Show s : listaDeShow) {
         if (s != null) {

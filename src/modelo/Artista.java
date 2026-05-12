@@ -71,7 +71,7 @@ public class Artista {
     public String toString() {
 
         if (listaDeShow.isEmpty()) {
-            return "Sem Shows";
+            return "Nome: " + this.nomeArtistico +  " | Sem Shows";
         }
 
 
@@ -79,7 +79,7 @@ public class Artista {
         StringBuilder texto = new StringBuilder();
         texto.append("Nome: ")
             .append(nomeArtistico)
-            .append("| Shows agendados: ");
+            .append(" | Shows agendados: ");
 
         for (Show s : listaDeShow) {
         if (s != null) {
