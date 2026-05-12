@@ -63,9 +63,9 @@ public class Cadastrar {
             c3.adicionar(s5);
             manager.persist(s5);
 
-            Show s6 = new Show(LocalDate.of(2026, 7, 5), c3, a2);
+            Show s6 = new Show(LocalDate.of(2026, 7, 5), c1, a2);
             a2.adicionar(s6);
-            c3.adicionar(s6);
+            c1.adicionar(s6);
             manager.persist(s6);
 
             Show s7 = new Show(LocalDate.of(2026, 8, 15), c4, a4);
@@ -78,14 +78,14 @@ public class Cadastrar {
             c4.adicionar(s8);
             manager.persist(s8);
 
-            Show s9 = new Show(LocalDate.of(2026, 8, 17), c4, a5);
+            Show s9 = new Show(LocalDate.of(2026, 8, 17), c2, a5);
             a5.adicionar(s9);
-            c4.adicionar(s9);
+            c2.adicionar(s9);
             manager.persist(s9);
 
-            Show s10 = new Show(LocalDate.of(2026, 8, 18), c4, a5);
+            Show s10 = new Show(LocalDate.of(2026, 8, 18), c2, a5);
             a5.adicionar(s10);
-            c4.adicionar(s10);
+            c2.adicionar(s10);
             manager.persist(s10);
 
             Show s11 = new Show(LocalDate.of(2026, 8, 19), c4, a3);
@@ -103,7 +103,7 @@ public class Cadastrar {
         }
 
         Util.desconectar();
-        System.out.println("fim do programa");
+        System.out.println("fim do programa3");
     }
 
     // =================================================

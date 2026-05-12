@@ -59,86 +59,26 @@ public class Consultar {
                 System.out.println(a);
             }
 
-            System.out.println("\n---quais os artistas que tem mais de 1 shows na cidade 'Natal'");
+            System.out.println("\n---quais os artistas que tem mais de 1 shows na cidade 'Campina Grande'");
 
-          
-            //codigo db40
-            
-            // System.out.println("\n---quais os artistas que tem mais de 1 shows na cidade 'Natal'");
-            // q = manager.query();
-            // q.constrain(Artista.class);
-            // q.constrain(new Filtro1(1));
-            // List<Artista> artistas = q.execute();
-            // for (Artista artista : artistas) {
-            //     System.out.println(artista);
-            // }
-            // Util.desconectar();
-            // System.out.println("\n\n aviso: feche sempre o plugin OME antes de executar aplica��o");
-            // class Filtro1 implements Evaluation {
-            //     private int n;
-            //     public Filtro1(int n) {
-            //         this.n = n;
-            //     }
-            //     public void evaluate(Candidate candidate) {
-            //         Artista a = (Artista) candidate.getObject();
-            //         List<Show> shows = a.getListaDeShow();
-            //         int cont = 0;
-            //         for (Show s : shows) {
-            //             if (s.getCidade().getNome().equals("Natal")) {
-            //                 cont++;
-            //             }
-            //         }
-            //         if (cont > n) {
-            //             candidate.include(true);
-            //         } else {
-            //             candidate.include(false);
-            //         }
-            //     }
+
+            //implementação pronta - adiantado
+            TypedQuery<Artista> q3 = manager.createQuery(
+                                """
+                            select a from artista20241370035 a join a.listaDeShow s where s.cidade.nome = :cidade group by a having count(s) > :quantidade
+                            """, Artista.class);
+            q3.setParameter("cidade", "Campina Grande" );
+            q3.setParameter("quantidade", 1);
 
 
 
-            // CODIGO FAUSTO JPA
-            // System.out.println("\n--- pessoas nascidas no mes 02");
-            // q1 = manager.createQuery("""
-            // 		select p from Pessoa p where extract(month from dtnascimento) = :mes""", 
-            // 		Pessoa.class);
-            // q1.setParameter("mes",2);
-            // pessoas = q1.getResultList();
-            // for (Pessoa p : pessoas) System.out.println(p);
-            // System.out.println("\n--- pessoas com apelido contendo 'jo'");
-            // q1 = manager.createQuery("""
-            // 		select  p from Pessoa p join p.apelidos a where a like :x """,
-            // 		Pessoa.class);
-            // q1.setParameter("x", "%jo%");
-            // pessoas = q1.getResultList();
-            // for (Pessoa p : pessoas) System.out.println(p);
-            // System.out.println("\n--- pesoas com telefone fixo");
-            // q1 = manager.createQuery("""
-            // 		select p from Pessoa p join p.telefones t
-            // 		where t.numero like :prefixo""", 
-            // 		Pessoa.class);
-            // q1.setParameter("prefixo", "3%"); 
-            // pessoas = q1.getResultList();
-            // for (Pessoa p : pessoas) System.out.println(p);
-            // System.out.println("\n--- pessoas com 2 telefones");
-            // q1 = manager.createQuery("""
-            // 		select p from Pessoa p	where SIZE(p.telefones) = :x""", 
-            // 		Pessoa.class);
-            // q1.setParameter("x", 2);
-            // pessoas = q1.getResultList();
-            // for (Pessoa p : pessoas) System.out.println(p); 
-            // System.out.println("\n--- total de pessoas");
-            // q2 = manager.createQuery("""
-            // 		select count(p) from Pessoa p""", 
-            // 		Long.class);
-            // Long cont = q2.getSingleResult();
-            // System.out.println(cont);
-            // System.out.println("\n--- total de alunos");
-            // q2 = manager.createQuery("""
-            // 		select count(a) from Aluno a""", 
-            // 		Long.class);
-            // cont = q2.getSingleResult();
-            // System.out.println(cont);
+            List<Artista> lista = q3.getResultList();
+
+            for (Artista a : lista) {
+                System.out.println(a);
+            }
+
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

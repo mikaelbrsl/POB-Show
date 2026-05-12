@@ -22,7 +22,7 @@ public class Artista {
 
     @OneToMany(mappedBy = "artista",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            orphanRemoval = true
+            orphanRemoval = false
     )
     private List<Show> listaDeShow;
 

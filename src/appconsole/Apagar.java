@@ -7,7 +7,14 @@ package appconsole;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import modelo.Cidade;
+import modelo.Show;
 import util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Apagar {
 
@@ -17,69 +24,15 @@ public class Apagar {
         try {
             Util.conectar();
             manager = Util.getManager();
+            manager.getTransaction().begin();
+            System.out.println("tarefa: Deletar shows agendados na cidade Natal");
 
-            //db40(CODIGO ANTIGO)
+            Query q = manager.createQuery("DELETE FROM show20241370035 s WHERE s.cidade.nome = 'Natal'");
+            int quant = q.executeUpdate();
 
-            // OBS: Deletando todos os objetos do banco para retestes
+            manager.getTransaction().commit();
+            System.out.println("Shows deletados.");
 
-			//Query q = manager.query();
-			//q.constrain(Artista.class);  				
-			//List<Artista> resultados = q.execute();
-			//for (Artista art : resultados ) {
-			//		manager.delete(art);
-			//}
-			//		
-			//q = manager.query();
-			//q.constrain(Cidade.class);  				
-			//List<Cidade> resultados2 = q.execute();
-			//for (Cidade cid : resultados2 ) {
-			//		manager.delete(cid);
-			//}
-			//		
-			//q = manager.query();
-			//q.constrain(Show.class);  				
-			//List<Show> resultados3 = q.execute();
-			//	for (Show show : resultados3 ) {
-			//		manager.delete(show);
-			//	}
-			// finaliza aqui
-			// ...
-
-
-            // Query q = manager.query();
-            // q.constrain(Cidade.class);
-            // q.descend("nome").constrain("Natal");
-            // List<Cidade> cidade = q.execute();
-            // Cidade c = cidade.getFirst();
-            // List<Show> show = c.getListaDeShow();
-            // if (!show.isEmpty()) {
-            // 	for(Show s : show) {
-            // 		manager.delete(s);
-            // 	}
-            // }
-            // manager.delete(c);
-            // manager.commit();
-
-
-
-            //CODIGO DE FAUSTO JPA
-
-            // System.out.println("tarefa: deletar joana e seus telefones - orfaos");
-            // manager.getTransaction().begin();
-            // TypedQuery<Pessoa> q = manager.createQuery(
-            // 		"select p from Pessoa p where p.nome = 'joana' ", Pessoa.class);
-            // Pessoa joana = q.getSingleResultOrNull();
-            // if(joana == null) {
-            // 	System.out.println("nome inexistente no banco");
-            // 	return;
-            // }
-            // joana.getApelidos().clear(); //remover apelidos
-            // for(Telefone t : joana.getTelefones()) {
-            // 	t.setPessoa(null); 	
-            // }
-            // manager.remove(joana);	//deletar joana - telefones orfaos serao deletados
-            // manager.getTransaction().commit();
-            // System.out.println("deletou com sucesso");
 
 
         } catch (NonUniqueResultException e) {
@@ -91,7 +44,7 @@ public class Apagar {
         }
 
         Util.desconectar();
-        System.out.println("fim do programa");
+        System.out.println("fim do programa4");
     }
 
     // =================================================
@@ -100,3 +53,48 @@ public class Apagar {
     }
 
 }
+//db4o(CODIGO ANTIGO)
+
+// alterando cidade do show 1 para Recife
+
+// Query q = manager.query();
+// q.constrain(Show.class);
+// q.descend("id").constrain(1);
+// List<Show> resultados = q.execute();
+// if (resultados.size() > 0) {
+// 	Show show = resultados.getFirst();
+// 	System.out.println("Show " + show.getId() + " encontrado." );
+// 	Cidade cidade = show.getCidade();
+// 	q = manager.query();
+// 	q.constrain(Cidade.class);
+// 	q.descend("nome").constrain("Recife");
+// 	List<Cidade> resultados2 = q.execute();
+// 	if (resultados2.size() > 0) {
+// 		Cidade novaCidade = resultados2.getFirst();
+// 		show.remover(cidade);
+// 		show.adicionar(novaCidade);
+// 	manager.store(show);
+// 		manager.store(show);
+// 		System.out.println("Show " + show.getId() + " alterado para cidade " + novaCidade.getNome());
+// 	} else
+// 		System.out.println("Cidade 'Recife' não encontrada.");
+// Util.desconectar();
+// System.out.println("\n\n aviso: feche sempre o plugin OME antes de executar aplica��o");
+
+
+
+
+//CODIGO FAUSTO JPA
+
+// manager.getTransaction().begin();
+// TypedQuery<Pessoa> q = manager.createQuery(
+// 		"select p from Pessoa p where p.nome = 'joao' ", Pessoa.class);
+// Pessoa p = q.getSingleResult();
+// p.setNome("joana");
+// Telefone t = p.getTelefones().getLast();
+// p.remover(t);
+//manager.merge(p); //nao necessita de atualiza��o (� automatico)
+//manager.merge(t); //nao necessita de atualiza��o (� automatico)
+// manager.getTransaction().commit();
+// System.out.println("alterou nome para joana");
+// System.out.println("removeu ultimo telefone ");
