@@ -9,8 +9,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
-@Entity(name = "cidade20241370035")
+@Entity
+@Table(name = "cidade20241370035")
 public class Cidade {
 
     @Id
@@ -85,28 +87,27 @@ public class Cidade {
             return "Nome: " + this.nome + " | Sem Shows";
         }
 
-
         boolean primeiroShowAdicionado = true;
         StringBuilder texto = new StringBuilder();
         texto.append("Nome: ")
-            .append(this.nome)
-            .append(" | Shows agendados: ");
+                .append(this.nome)
+                .append(" | Shows agendados: ");
 
         for (Show s : listaDeShow) {
-        if (s != null) {
-            if (!primeiroShowAdicionado) {
-                texto.append(", ");
-            }
+            if (s != null) {
+                if (!primeiroShowAdicionado) {
+                    texto.append(", ");
+                }
 
-            texto.append("[Id: ")
-                .append(s.getId())
-                .append(", Artista: ").append(s.getArtista().getNomeArtistico())
-                .append(", Data: ").append(s.getData())
-                .append("]");
-            
-            primeiroShowAdicionado = false;
+                texto.append("[Id: ")
+                        .append(s.getId())
+                        .append(", Artista: ").append(s.getArtista().getNomeArtistico())
+                        .append(", Data: ").append(s.getData())
+                        .append("]");
+
+                primeiroShowAdicionado = false;
+            }
         }
-    }
         return texto.toString();
     }
 }
