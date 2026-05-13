@@ -24,7 +24,7 @@ public class Listar {
             manager = Util.getManager();
 
             System.out.println("\nLLISTAGEM DE PESSOAS");
-            TypedQuery<Artista> query1 = manager.createQuery("select a from artista20241370035 a", Artista.class); // order by p.nome
+            TypedQuery<Artista> query1 = manager.createQuery("select a from Artista a", Artista.class); // order by p.nome
             List<Artista> resultados1 = query1.getResultList();
             for (Artista a : resultados1) {
                 System.out.println(a);
@@ -32,7 +32,7 @@ public class Listar {
             }
 
             System.out.println("\nLISTAGEM DE CIDADES");
-            TypedQuery<Cidade> query2 = manager.createQuery("select c from cidade20241370035 c", Cidade.class); // order by p.nome
+            TypedQuery<Cidade> query2 = manager.createQuery("select c from Cidade c", Cidade.class); // order by p.nome
             List<Cidade> resultados2 = query2.getResultList();
             for (Cidade c : resultados2) {
                 System.out.println(c);
@@ -40,7 +40,7 @@ public class Listar {
             }
 
             System.out.println("\nLISTAGEM DE SHOWS");
-            TypedQuery<Show> query3 = manager.createQuery("select s from show20241370035 s", Show.class); // order by p.nome
+            TypedQuery<Show> query3 = manager.createQuery("select s from Show s", Show.class); // order by p.nome
             List<Show> resultados3 = query3.getResultList();
             for (Show s : resultados3) {
                 System.out.println(s);

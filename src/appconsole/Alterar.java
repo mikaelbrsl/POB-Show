@@ -25,7 +25,7 @@ public class Alterar {
             System.out.println("tarefa: alterar cidade de um show.");
             manager.getTransaction().begin();
             TypedQuery<Show> q = manager.createQuery(
-                    "select s from show20241370035 s where s.id = 1", Show.class);
+                    "select s from Show s where s.id = 1", Show.class);
             Show s = q.getSingleResult();
 
             System.out.println("Show " + s.getId() + " encontrado.");
@@ -33,7 +33,7 @@ public class Alterar {
             Cidade oldCidade = s.getCidade();
 
             TypedQuery<Cidade> q2 = manager.createQuery(
-                    "select c from cidade20241370035 c where c.nome = 'Recife' ", Cidade.class
+                    "select c from Cidade c where c.nome = 'Recife' ", Cidade.class
             );
             Cidade newCidade = q2.getSingleResult();
 

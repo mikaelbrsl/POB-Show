@@ -21,7 +21,7 @@ public class Apagar {
             manager.getTransaction().begin();
             System.out.println("tarefa: Deletar shows agendados na cidade Natal");
 
-            Query q = manager.createQuery("DELETE FROM show20241370035 s WHERE s.cidade.nome = 'Natal'");
+            Query q = manager.createQuery("DELETE FROM Show s WHERE s.cidade.nome = 'Natal'");
             int quant = q.executeUpdate();
 
             manager.getTransaction().commit();

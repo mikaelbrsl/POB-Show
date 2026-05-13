@@ -30,7 +30,7 @@ public class Consultar {
 
             LocalDate dataBusca = LocalDate.of(2026, 7, 5);
             String selectQueryString = """
-            select s from show20241370035 s 
+            select s from Show s 
             where s.data = :dataShow""";
 
             q1 = manager.createQuery(selectQueryString, Show.class);
@@ -47,7 +47,7 @@ public class Consultar {
             TypedQuery<Artista> q2;
 
             selectQueryString = """
-            select a from artista20241370035 a
+            select a from Artista a
             join a.listaDeShow ls
             join ls.cidade c
             where c.nome like :nomeCidade""";
@@ -65,7 +65,9 @@ public class Consultar {
             //implementação pronta - adiantado
             TypedQuery<Artista> q3 = manager.createQuery(
                                 """
-                            select a from artista20241370035 a join a.listaDeShow s where s.cidade.nome = :cidade group by a having count(s) > :quantidade
+                            select a from Artista a 
+                            join a.listaDeShow s 
+                            where s.cidade.nome = :cidade
                             """, Artista.class);
             q3.setParameter("cidade", "Campina Grande" );
             q3.setParameter("quantidade", 1);
