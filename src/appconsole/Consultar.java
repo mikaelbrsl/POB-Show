@@ -48,9 +48,8 @@ public class Consultar {
 
             selectQueryString = """
             select a from Artista a
-            join a.listaDeShow ls
-            join ls.cidade c
-            where c.nome like :nomeCidade""";
+            join a.listaDeShow s
+            where s.cidade.nome like :nomeCidade""";
 
             q2 = manager.createQuery(selectQueryString, Artista.class);
             q2.setParameter("nomeCidade", "João Pessoa");
@@ -61,25 +60,22 @@ public class Consultar {
 
             System.out.println("\n---quais os artistas que tem mais de 1 shows na cidade 'Campina Grande'");
 
-
             //implementação pronta - adiantado
             TypedQuery<Artista> q3 = manager.createQuery(
-                                """
+                    """
                             select a from Artista a 
-                            join a.listaDeShow s 
-                            where s.cidade.nome = :cidade
+                            where ( select count(s) from Show s
+                                    where s.cidade.nome like :cidade
+                                    and s.artista = a) > :quantidade
                             """, Artista.class);
-            q3.setParameter("cidade", "Campina Grande" );
+            q3.setParameter("cidade", "Campina Grande");
             q3.setParameter("quantidade", 1);
-
-
 
             List<Artista> lista = q3.getResultList();
 
             for (Artista a : lista) {
                 System.out.println(a);
             }
-
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
