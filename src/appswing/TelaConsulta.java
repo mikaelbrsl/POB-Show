@@ -27,7 +27,6 @@ import javax.swing.table.DefaultTableModel;
 
 import modelo.Pessoa;
 import modelo.Telefone;
-import requisito.FachadaPessoa;
 
 public class TelaConsulta {
 	private JDialog frame;

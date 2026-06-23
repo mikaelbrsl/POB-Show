@@ -46,9 +46,6 @@ import javax.swing.table.DefaultTableModel;
 
 import modelo.Aluno;
 import modelo.Telefone;
-import requisito.FachadaAluno;
-import requisito.FachadaPessoa;
-import requisito.FachadaTelefone;
 
 public class TelaAluno {
 	private JDialog frame;
@@ -73,7 +70,7 @@ public class TelaAluno {
 	private JTextField textField_3;
 	private JTextField textField_5;
 	private JLabel label_5;
-	private BufferedImage buffer; // armazena a foto na memória durante a edicao
+	private BufferedImage buffer; // armazena a foto na memï¿½ria durante a edicao
 	private JLabel label_6;
 	private JTextField textField_4;
 	private JButton button;
@@ -125,7 +122,7 @@ public class TelaAluno {
 		scrollPane.setBounds(21, 39, 751, 147);
 		frame.getContentPane().add(scrollPane);
 
-		table = new JTable() { // herança de JTable
+		table = new JTable() { // heranï¿½a de JTable
 			public boolean isCellEditable(int rowIndex, int vColIndex) {
 				return false; // desabilita edicao de celulas
 			}
@@ -443,14 +440,14 @@ public class TelaAluno {
 			String nome = textField_1.getText();
 
 			Object[] options = { "Confirmar", "Cancelar" };
-			int escolha = JOptionPane.showOptionDialog(null, "Esta operação apagará a pessoa " + nome, "Alerta",
+			int escolha = JOptionPane.showOptionDialog(null, "Esta operaï¿½ï¿½o apagarï¿½ a pessoa " + nome, "Alerta",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 			if (escolha == 0) {
 				FachadaPessoa.apagarPessoa(nome);
 				label.setText("aluno excluido");
 				listagem();
 			} else
-				label.setText("exclusão cancelada");
+				label.setText("exclusï¿½o cancelada");
 
 		} catch (Exception erro) {
 			label.setText(erro.getMessage());
@@ -473,7 +470,7 @@ public class TelaAluno {
 			label.setText("aluno criado");
 			listagem();
 		} catch (NumberFormatException ex) {
-			label.setText("nota inválida");
+			label.setText("nota invï¿½lida");
 		} catch (Exception ex) {
 			label.setText(ex.getMessage());
 		}
@@ -497,7 +494,7 @@ public class TelaAluno {
 					bytesfoto = baos.toByteArray();
 					baos.close();
 				} catch (IOException ex1) {
-					label.setText("problema na conversão da imagem em bytes");
+					label.setText("problema na conversï¿½o da imagem em bytes");
 				}
 			FachadaPessoa.alterarFoto(nome, bytesfoto);
 

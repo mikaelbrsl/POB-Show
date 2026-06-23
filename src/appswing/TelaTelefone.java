@@ -29,7 +29,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Telefone;
-import requisito.FachadaTelefone;
 
 public class TelaTelefone {
 	private JDialog frame;
@@ -146,13 +145,13 @@ public class TelaTelefone {
 					}
 					String numero = textField_2.getText();
 					textField_3.setText("");
-					//confirmação
+					//confirmaï¿½ï¿½o
 					Object[] options = { "Confirmar", "Cancelar" };
-					int escolha = JOptionPane.showOptionDialog(null, "Confirma exclusão do telefone "+numero, "Alerta",
+					int escolha = JOptionPane.showOptionDialog(null, "Confirma exclusï¿½o do telefone "+numero, "Alerta",
 							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 					if(escolha == 0) {
 						FachadaTelefone.apagarTelefone(numero);
-						label.setText("exclusão realizada");
+						label.setText("exclusï¿½o realizada");
 						listagem();
 					}
 				}
