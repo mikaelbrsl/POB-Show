@@ -19,39 +19,39 @@ public class Listar {
     private EntityManager manager;
 
     public Listar() {
-        try {
-            Util.conectar();
-            manager = Util.getManager();
+        // try {
+        //     Util.conectar();
+        //     manager = Util.getManager();
 
-            System.out.println("\nLLISTAGEM DE PESSOAS");
-            TypedQuery<Artista> query1 = manager.createQuery("select a from Artista a", Artista.class); // order by p.nome
-            List<Artista> resultados1 = query1.getResultList();
-            for (Artista a : resultados1) {
-                System.out.println(a);
-                System.out.println();
-            }
+        //     System.out.println("\nLLISTAGEM DE PESSOAS");
+        //     TypedQuery<Artista> query1 = manager.createQuery("select a from Artista a order by a.id", Artista.class); // order by p.nome
+        //     List<Artista> resultados1 = query1.getResultList();
+        //     for (Artista a : resultados1) {
+        //         System.out.println(a);
+        //         System.out.println();
+        //     }
 
-            System.out.println("\nLISTAGEM DE CIDADES");
-            TypedQuery<Cidade> query2 = manager.createQuery("select c from Cidade c", Cidade.class); // order by p.nome
-            List<Cidade> resultados2 = query2.getResultList();
-            for (Cidade c : resultados2) {
-                System.out.println(c);
-                System.out.println();
-            }
+        //     System.out.println("\nLISTAGEM DE CIDADES");
+        //     TypedQuery<Cidade> query2 = manager.createQuery("select c from Cidade c order by c.id", Cidade.class); // order by p.nome
+        //     List<Cidade> resultados2 = query2.getResultList();
+        //     for (Cidade c : resultados2) {
+        //         System.out.println(c);
+        //         System.out.println();
+        //     }
 
-            System.out.println("\nLISTAGEM DE SHOWS");
-            TypedQuery<Show> query3 = manager.createQuery("select s from Show s", Show.class); // order by p.nome
-            List<Show> resultados3 = query3.getResultList();
-            for (Show s : resultados3) {
-                System.out.println(s);
-                System.out.println();
-            }
+        //     System.out.println("\nLISTAGEM DE SHOWS");
+        //     TypedQuery<Show> query3 = manager.createQuery("select s from Show s order by id", Show.class); // order by p.nome
+        //     List<Show> resultados3 = query3.getResultList();
+        //     for (Show s : resultados3) {
+        //         System.out.println(s);
+        //         System.out.println();
+        //     }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        // } catch (Exception e) {
+        //     System.out.println(e.getMessage());
+        // }
 
-        Util.desconectar();
+        // Util.desconectar();
         System.out.println("fim do programa");
     }
 

@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "cidade20241370035")
@@ -28,12 +29,19 @@ public class Cidade {
     )
     private List<Show> listaDeShow;
 
+    @Version
+    private long versao;
+
     public Cidade() {
     }
 
     public Cidade(String nome, List<Show> listaDeShow) {
         this.nome = nome;
         this.listaDeShow = listaDeShow;
+    }
+    
+    public Cidade(String nome) {
+        this.nome = nome;
     }
 
 //    public void addShow(Show show){

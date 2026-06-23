@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "show20241370035")
@@ -31,6 +32,9 @@ public class Show {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "artista_fk", nullable = false)
     private Artista artista;
+
+    @Version
+    private long versao;
 
     public Show() {
     }

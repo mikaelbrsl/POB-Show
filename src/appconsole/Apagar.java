@@ -15,29 +15,29 @@ public class Apagar {
     private EntityManager manager;
 
     public Apagar() {
-        try {
-            Util.conectar();
-            manager = Util.getManager();
-            manager.getTransaction().begin();
-            System.out.println("tarefa: Deletar shows agendados na cidade Natal");
+        // try {
+        //     Util.conectar();
+        //     manager = Util.getManager();
+        //     manager.getTransaction().begin();
+        //     System.out.println("tarefa: Deletar shows agendados na cidade Natal");
 
-            Query q = manager.createQuery("DELETE FROM Show s WHERE s.cidade.nome = 'Natal'");
-            int quant = q.executeUpdate();
+        //     Query q = manager.createQuery("DELETE FROM Show s WHERE s.cidade.nome = 'Natal'");
+        //     int quant = q.executeUpdate();
 
-            manager.getTransaction().commit();
-            System.out.println(quant + "Shows deletados.");
+        //     manager.getTransaction().commit();
+        //     System.out.println(quant + "Shows deletados.");
 
 
 
-        } catch (NonUniqueResultException e) {
-            manager.getTransaction().rollback();
-            System.out.println("nome duplicado ");
-        } catch (Exception e) {
-            manager.getTransaction().rollback();
-            System.out.println("problema:" + e.getMessage());
-        }
+        // } catch (NonUniqueResultException e) {
+        //     manager.getTransaction().rollback();
+        //     System.out.println("nome duplicado ");
+        // } catch (Exception e) {
+        //     manager.getTransaction().rollback();
+        //     System.out.println("problema:" + e.getMessage());
+        // }
 
-        Util.desconectar();
+        // Util.desconectar();
         System.out.println("fim do programa4");
     }
 

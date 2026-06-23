@@ -18,42 +18,42 @@ public class Alterar {
     private EntityManager manager;
 
     public Alterar() {
-        try {
-            Util.conectar();
-            manager = Util.getManager();
+        // try {
+        //     Util.conectar();
+        //     manager = Util.getManager();
 
-            System.out.println("tarefa: alterar cidade de um show.");
-            manager.getTransaction().begin();
-            TypedQuery<Show> q = manager.createQuery(
-                    "select s from Show s where s.id = 1", Show.class);
-            Show s = q.getSingleResult();
+        //     System.out.println("tarefa: alterar cidade de um show.");
+        //     manager.getTransaction().begin();
+        //     TypedQuery<Show> q = manager.createQuery(
+        //             "select s from Show s where s.id = 1", Show.class);
+        //     Show s = q.getSingleResult();
 
-            System.out.println("Show " + s.getId() + " encontrado.");
+        //     System.out.println("Show " + s.getId() + " encontrado.");
 
-            Cidade oldCidade = s.getCidade();
+        //     Cidade oldCidade = s.getCidade();
 
-            TypedQuery<Cidade> q2 = manager.createQuery(
-                    "select c from Cidade c where c.nome = 'Recife' ", Cidade.class
-            );
-            Cidade newCidade = q2.getSingleResult();
+        //     TypedQuery<Cidade> q2 = manager.createQuery(
+        //             "select c from Cidade c where c.nome = 'Recife' ", Cidade.class
+        //     );
+        //     Cidade newCidade = q2.getSingleResult();
 
-            s.setCidade(newCidade);
-            oldCidade.remover(s);
-            manager.getTransaction().commit();
-            System.out.println("Cidade do show " + s.getId() + " alterado para " + newCidade.getNome());
+        //     s.setCidade(newCidade);
+        //     oldCidade.remover(s);
+        //     manager.getTransaction().commit();
+        //     System.out.println("Cidade do show " + s.getId() + " alterado para " + newCidade.getNome());
 
-        } catch (NonUniqueResultException e) {
-            manager.getTransaction().rollback();
-            System.out.println("encontrou nome duplicado no banco ");
-        } catch (NoResultException e) {
-            manager.getTransaction().rollback();
-            System.out.println("nao encontrou nome no banco ");
-        } catch (Exception e) {
-            manager.getTransaction().rollback();
-            System.out.println(e.getMessage());
-        }
+        // } catch (NonUniqueResultException e) {
+        //     manager.getTransaction().rollback();
+        //     System.out.println("encontrou nome duplicado no banco ");
+        // } catch (NoResultException e) {
+        //     manager.getTransaction().rollback();
+        //     System.out.println("nao encontrou nome no banco ");
+        // } catch (Exception e) {
+        //     manager.getTransaction().rollback();
+        //     System.out.println(e.getMessage());
+        // }
 
-        Util.desconectar();
+        // Util.desconectar();
 
         System.out.println("fim do programa2");
     }
