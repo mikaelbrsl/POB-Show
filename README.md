@@ -32,8 +32,14 @@
 
 *  Etapa realizada utilizando db4o para fazer a persistência
 *  Utilização do SODA(Simple Object Database Acess) e de Filtros Customizados para realizar as consultas
-*  Realese feito
+*  Release feito
 
 ### 2º Etapa: JPA
 
-*  Etapa em progresso
+*  Etapa realiza utilizando JPA para a persistência
+*  Utilização de JPQL(Java Persistence Query Language) para realizar consultas
+*  Release feito
+
+### 3º Etapa: JPA com arquitetura MVC e utilização de Facade
+
+* Etapa em progresso
