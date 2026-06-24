@@ -26,10 +26,19 @@ public class Artista {
 
     @OneToMany(mappedBy = "artista",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            orphanRemoval = false,
             fetch = FetchType.LAZY
     )
     private List<Show> listaDeShow;
+
+    private byte[] foto;
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
     @Version
     private long versao;
@@ -109,4 +118,5 @@ public class Artista {
         }
         return texto.toString();
     }
+
 }

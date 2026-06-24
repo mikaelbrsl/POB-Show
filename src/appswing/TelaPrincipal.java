@@ -5,10 +5,10 @@ package appswing;
  * Prof. Fausto Ayres
  **********************************/
 
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,21 +25,22 @@ public class TelaPrincipal {
 	private JMenu mnConsulta;
 	private JLabel label;
 
+
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TelaPrincipal window = new TelaPrincipal();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaPrincipal window = new TelaPrincipal();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -66,36 +67,36 @@ public class TelaPrincipal {
 		label.setBounds(0, 0, 444, 249);
 		label.setText("Inicializando...");
 		label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/agenda.jpg"));
+		ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/show.jpeg"));
 		imagem = new ImageIcon(imagem.getImage().getScaledInstance(label.getWidth(),label.getHeight(), Image.SCALE_DEFAULT));
 		label.setIcon(imagem);
 		frame.getContentPane().add(label);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		mnPessoa = new JMenu("Pessoa");
+		mnPessoa = new JMenu("Show");
 		mnPessoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new TelaPessoa();
+				new TelaShow();
 			}
 		});
 		menuBar.add(mnPessoa);
 		
-		mnAluno = new JMenu("Aluno");
+		mnAluno = new JMenu("Artista");
 		mnAluno.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new TelaAluno();
+				new TelaArtista();
 			}
 		});
 		menuBar.add(mnAluno);
 		
-		mnTelefone = new JMenu("Telefone");
+		mnTelefone = new JMenu("Cidade");
 		mnTelefone.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new TelaTelefone();
+				new TelaCidade();
 			}
 		});
 		menuBar.add(mnTelefone);

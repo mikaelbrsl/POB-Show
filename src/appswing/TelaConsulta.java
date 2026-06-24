@@ -1,15 +1,11 @@
-/**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- *
- */
 package appswing;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -25,8 +21,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import modelo.Pessoa;
-import modelo.Telefone;
+import modelo.Artista;
+import modelo.Show;
+import requisito.FachadaShow;
 
 public class TelaConsulta {
 	private JDialog frame;
@@ -38,38 +35,16 @@ public class TelaConsulta {
 
 	private JComboBox<String> comboBox;
 
-	/**
-	 * Launch the application.
-	 */
-	//	public static void main(String[] args) {
-	//		EventQueue.invokeLater(new Runnable() {
-	//			public void run() {
-	//				try {
-	//					new TelaConsulta();
-	//				} catch (Exception e) {
-	//					e.printStackTrace();
-	//				}
-	//			}
-	//		});
-	//	}
-
-	/**
-	 * Create the application.
-	 */
 	public TelaConsulta() {
 		initialize();
 		frame.setVisible(true);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JDialog();
 		frame.setModal(true);
-
 		frame.setResizable(false);
-		frame.setTitle("Consultas");
+		frame.setTitle("Consultas do Sistema de Shows");
 		frame.setBounds(100, 100, 729, 385);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -97,7 +72,7 @@ public class TelaConsulta {
 		table.setShowGrid(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		label = new JLabel("");		//label de mensagem
+		label = new JLabel("");		
 		label.setForeground(Color.BLUE);
 		label.setBounds(21, 321, 688, 14);
 		frame.getContentPane().add(label);
@@ -111,31 +86,42 @@ public class TelaConsulta {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = comboBox.getSelectedIndex();
-				if(index<0)
+				if(index < 0) {
 					label_4.setText("consulta nao selecionada");
-				else {
+				} else {
 					label_4.setText("");
-					switch(index) {
-					case 0: 
-						String mes = JOptionPane.showInputDialog("digite o mes");
-						List<Pessoa> resultado1 = FachadaPessoa.consultarMesNascimento(mes) ;
-						listagemPessoa(resultado1);
-						break;
-					case 1: 
-						String modelo = JOptionPane.showInputDialog("digite o apelido");
-						List<Pessoa> resultado2 = FachadaPessoa.consultarApelido(modelo);
-						listagemPessoa(resultado2);		
-						break;
-					case 2: 
-						String n = JOptionPane.showInputDialog("digite N");
-						int numero = Integer.parseInt(n);
-						List<Pessoa> resultado3 = FachadaPessoa.consultarPessoasNTelefones(numero);
-						listagemPessoa(resultado3);
-						break;
-
+					label.setText("");
+					try {
+						switch(index) {
+						case 0: 
+							String dataTexto = JOptionPane.showInputDialog("Digite a data (dd/MM/yyyy):");
+							if (dataTexto != null && !dataTexto.isEmpty()) {
+								LocalDate dataBusca = LocalDate.parse(dataTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+								List<Show> resultado1 = FachadaShow.consultarShowsNaData(dataBusca);
+								listagemShow(resultado1);
+							}
+							break;
+						case 1: 
+							String cidade = JOptionPane.showInputDialog("Digite o nome da cidade:");
+							if (cidade != null && !cidade.isEmpty()) {
+								List<Artista> resultado2 = FachadaShow.consultarArtistasNaCidade(cidade);
+								listagemArtista(resultado2);
+							}	
+							break;
+						case 2: 
+							String cid = JOptionPane.showInputDialog("Digite a cidade:");
+							String qtdStr = JOptionPane.showInputDialog("Digite a quantidade limite de shows:");
+							if (cid != null && !cid.isEmpty() && qtdStr != null && !qtdStr.isEmpty()) {
+								int quantidade = Integer.parseInt(qtdStr);
+								List<Artista> resultado3 = FachadaShow.consultarArtistasComMaisDeNShowsNaCidade(cid, quantidade);
+								listagemArtista(resultado3);
+							}
+							break;
+						}
+					} catch (Exception erro) {
+						label.setText("Erro ao executar consulta: " + erro.getMessage());
 					}
 				}
-
 			}
 		});
 		button.setBounds(606, 10, 89, 23);
@@ -143,52 +129,56 @@ public class TelaConsulta {
 
 		comboBox = new JComboBox<String>();
 		comboBox.setToolTipText("selecione a consulta");
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"pessoas que nasceram no mes X", "pessoa com apelido X", "pessoas com N telefones"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
+			"quais os shows na data X", 
+			"quais os artistas que vao se apresentar na cidade X", 
+			"quais os artistas que tem mais de N shows na cidade X"
+		}));
 		comboBox.setBounds(21, 10, 513, 22);
 		frame.getContentPane().add(comboBox);
 	}
 
-	public void listagemPessoa(List<Pessoa> lista) {
+	public void listagemShow(List<Show> lista) {
 		try {
-			// objeto model armazena os dados do grid
 			DefaultTableModel model = new DefaultTableModel();
 			table.setModel(model);
 
-			// inserir colunas (0,1,2) no grid
-			model.addColumn("Id");
-			model.addColumn("Nome");
-			model.addColumn("Nascimento");
-			model.addColumn("Apelidos");
-			model.addColumn("Telefones");
+			model.addColumn("ID Show");
+			model.addColumn("Data");
+			model.addColumn("Artista");
+			model.addColumn("Cidade");
 
-			// inserir linhas no grid
-			String texto1, texto2;
-			for (Pessoa pessoa : lista) {
-				//recarregar apelidos e telefones de cada pessoa com left join fetch
-				Pessoa p = FachadaPessoa.localizarPessoa(pessoa.getNome()); 
-			
-				texto1 = String.join(",", p.getApelidos()); // concatena strings
-				if (p.getTelefones().size() > 0) {
-					texto2 = "";
-					for (Telefone t : p.getTelefones())
-						texto2 += t.getNumero() + " ";
-				} else
-					texto2 = "sem telefone";
-				//adicionar linha no grid
-				model.addRow(new Object[] { p.getId(), p.getNome(), p.getDtNascimento(), texto1, texto2 });
-
+			for (Show s : lista) {
+				String artista = (s.getArtista() != null) ? s.getArtista().getNomeArtistico() : "N/A";
+				String cidade = (s.getCidade() != null) ? s.getCidade().getNome() : "N/A";
+				model.addRow(new Object[] { s.getId(), s.getData(), artista, cidade });
 			}
-			// redimensionar a coluna 0,3 e 4
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // desabilita
-			table.getColumnModel().getColumn(0).setMaxWidth(40); // coluna id
-			table.getColumnModel().getColumn(3).setMinWidth(200); // coluna dos apelidos
-			table.getColumnModel().getColumn(4).setMinWidth(200); // coluna dos telefones
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); // desabilita
-
+			
+			label_4.setText("resultados: " + lista.size() + " shows encontrados.");
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		} catch (Exception erro) {
 			label.setText(erro.getMessage());
 		}
 	}
 
+	public void listagemArtista(List<Artista> lista) {
+		try {
+			DefaultTableModel model = new DefaultTableModel();
+			table.setModel(model);
 
+			model.addColumn("ID Artista");
+			model.addColumn("Nome Artístico");
+			model.addColumn("Qtd Total de Shows");
+
+			for (Artista a : lista) {
+				int qtd = (a.getListaDeShow() != null) ? a.getListaDeShow().size() : 0;
+				model.addRow(new Object[] { a.getId(), a.getNomeArtistico(), qtd });
+			}
+
+			label_4.setText("resultados: " + lista.size() + " artistas encontrados.");
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		} catch (Exception erro) {
+			label.setText(erro.getMessage());
+		}
+	}
 }
