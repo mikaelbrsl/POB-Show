@@ -24,4 +24,5 @@ public class RepositorioShow extends Repositorio<Show> {
         return q.setParameter("id", id).getSingleResultOrNull();
 
     }
+
 }

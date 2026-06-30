@@ -28,7 +28,7 @@ public class Util {
 			try {
 				logger.info("----conectar banco - lendo util.propriedades ");
 				Properties dados = new Properties();
-				dados.load(Util.class.getResourceAsStream("/util/util.properties")); // dentro de src
+				dados.load(Util.class.getResourceAsStream("/util/ip.properties")); // dentro de src
 				String sgbd = dados.getProperty("sgbd");
 				String banco = dados.getProperty("banco");
 				String ip = dados.getProperty("ip");

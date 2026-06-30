@@ -439,7 +439,12 @@ public class TelaArtista {
 				return;
 			}
 		}
-		FachadaArtista.alterarFoto(nomeArtista, bytesfoto);
+		try {
+			FachadaArtista.alterarFoto(nomeArtista, bytesfoto);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	public File selecionarArquivoFoto() {
