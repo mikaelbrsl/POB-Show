@@ -8,8 +8,6 @@ package appswing;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,7 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.SwingConstants;
 
-import util.Util;
+
 
 public class TelaPrincipal {
 	private JFrame frame;
@@ -36,7 +34,6 @@ public class TelaPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// Util.conectar();
 
 					TelaPrincipal window = new TelaPrincipal();
 					window.frame.setVisible(true);
@@ -66,13 +63,6 @@ public class TelaPrincipal {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
-		// 2. Ouvinte de janela para desconectar do banco de dados ao fechar a aplicação
-        // frame.addWindowListener(new WindowAdapter() {
-        //     @Override
-        //     public void windowClosing(WindowEvent e) {
-        //         Util.desconectar();
-        //     }
-        // });
 		
 		label = new JLabel("");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 26));

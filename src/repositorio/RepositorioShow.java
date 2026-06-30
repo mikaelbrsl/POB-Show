@@ -2,7 +2,6 @@ package repositorio;
 
 import jakarta.persistence.TypedQuery;
 import modelo.Artista;
-import modelo.Cidade;
 import modelo.Show;
 import util.Util;
 
