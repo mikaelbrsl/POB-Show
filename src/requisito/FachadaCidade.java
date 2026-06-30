@@ -63,8 +63,6 @@ public class FachadaCidade {
             if (c == null)
                 throw new Exception("apagar cidade - cidade não existe:" + nome);
 
-            c = new Cidade(nome);
-
             repCidade.deletar(c);
             Repositorio.commit();
 

@@ -25,7 +25,7 @@ public class Artista {
     private String nomeArtistico;
 
     @OneToMany(mappedBy = "artista",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
     private List<Show> listaDeShow;

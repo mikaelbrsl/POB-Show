@@ -1,173 +1,120 @@
-2026-06-30 04:44:08 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:08 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:08 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:10 [AWT-EventQueue-0] DEBUG SQL - 
+2026-06-30 12:42:18 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
+2026-06-30 12:42:18 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
+2026-06-30 12:42:19 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-06-30 12:42:21 [AWT-EventQueue-0] DEBUG SQL - 
     select
-        distinct c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
+        distinct a1_0.id,
+        a1_0.foto,
         lds1_0.artista_fk,
+        lds1_0.id,
+        lds1_0.cidade_fk,
         lds1_0.data,
         lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
+        a1_0.nomeArtistico,
+        a1_0.versao 
     from
-        cidade20241370035 c1_0 
+        show20241370035 s1_0 
+    join
+        artista20241370035 a1_0 
+            on a1_0.id=s1_0.artista_fk 
     left join
         show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
+            on a1_0.id=lds1_0.artista_fk 
+    join
+        cidade20241370035 c2_0 
+            on c2_0.id=s1_0.cidade_fk 
+    where
+        lower(c2_0.nome)=lower(?)
+2026-06-30 12:42:21 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [João Pessoa]
+2026-06-30 12:42:21 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
+2026-06-30 12:42:28 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
+2026-06-30 12:42:28 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
+2026-06-30 12:42:28 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-06-30 12:42:28 [AWT-EventQueue-0] DEBUG SQL - 
+    select
+        distinct a1_0.id,
+        a1_0.foto,
+        lds1_0.artista_fk,
+        lds1_0.id,
+        lds1_0.cidade_fk,
+        lds1_0.data,
+        lds1_0.versao,
+        a1_0.nomeArtistico,
+        a1_0.versao 
+    from
+        artista20241370035 a1_0 
+    left join
+        show20241370035 lds1_0 
+            on a1_0.id=lds1_0.artista_fk 
     order by
-        c1_0.id
-2026-06-30 04:44:10 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
-2026-06-30 04:44:20 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:20 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:20 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:20 [AWT-EventQueue-0] DEBUG SQL - 
+        a1_0.id
+2026-06-30 12:42:28 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
+2026-06-30 12:42:31 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
+2026-06-30 12:42:31 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
+2026-06-30 12:42:31 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-06-30 12:42:31 [AWT-EventQueue-0] DEBUG SQL - 
     select
-        c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
+        a1_0.id,
+        a1_0.foto,
         lds1_0.artista_fk,
+        lds1_0.id,
+        lds1_0.cidade_fk,
         lds1_0.data,
         lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
+        a1_0.nomeArtistico,
+        a1_0.versao 
     from
-        cidade20241370035 c1_0 
+        artista20241370035 a1_0 
     left join
         show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
+            on a1_0.id=lds1_0.artista_fk 
     where
-        c1_0.nome=?
-2026-06-30 04:44:20 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Recife]
-2026-06-30 04:44:20 [AWT-EventQueue-0] DEBUG SQL - 
-    insert 
-    into
-        cidade20241370035
-        (nome, versao) 
-    values
-        (?, ?)
-2026-06-30 04:44:20 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Recife]
-2026-06-30 04:44:20 [AWT-EventQueue-0] TRACE bind - binding parameter (2:BIGINT) <- [0]
-2026-06-30 04:44:20 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
-2026-06-30 04:44:20 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:20 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:20 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:21 [AWT-EventQueue-0] DEBUG SQL - 
+        a1_0.nomeArtistico=?
+2026-06-30 12:42:31 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Alok]
+2026-06-30 12:42:31 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
+2026-06-30 12:42:31 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
+2026-06-30 12:42:31 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
+2026-06-30 12:42:31 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-06-30 12:42:32 [AWT-EventQueue-0] DEBUG SQL - 
     select
-        distinct c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
+        a1_0.id,
+        a1_0.foto,
         lds1_0.artista_fk,
+        lds1_0.id,
+        lds1_0.cidade_fk,
         lds1_0.data,
         lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
+        a1_0.nomeArtistico,
+        a1_0.versao 
     from
-        cidade20241370035 c1_0 
+        artista20241370035 a1_0 
     left join
         show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
-    order by
-        c1_0.id
-2026-06-30 04:44:21 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
-2026-06-30 04:44:23 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:23 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:23 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:24 [AWT-EventQueue-0] DEBUG SQL - 
-    select
-        c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
-        lds1_0.artista_fk,
-        lds1_0.data,
-        lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
-    from
-        cidade20241370035 c1_0 
-    left join
-        show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
+            on a1_0.id=lds1_0.artista_fk 
     where
-        c1_0.nome=?
-2026-06-30 04:44:24 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Recife]
-2026-06-30 04:44:24 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
-2026-06-30 04:44:24 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:24 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:24 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:24 [AWT-EventQueue-0] DEBUG SQL - 
+        a1_0.nomeArtistico=?
+2026-06-30 12:42:32 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Alok]
+2026-06-30 12:42:32 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
+2026-06-30 12:42:33 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
+2026-06-30 12:42:33 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
+2026-06-30 12:42:33 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-06-30 12:42:33 [AWT-EventQueue-0] DEBUG SQL - 
     select
-        c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
+        a1_0.id,
+        a1_0.foto,
         lds1_0.artista_fk,
+        lds1_0.id,
+        lds1_0.cidade_fk,
         lds1_0.data,
         lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
+        a1_0.nomeArtistico,
+        a1_0.versao 
     from
-        cidade20241370035 c1_0 
+        artista20241370035 a1_0 
     left join
         show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
+            on a1_0.id=lds1_0.artista_fk 
     where
-        c1_0.nome=?
-2026-06-30 04:44:24 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Recife]
-2026-06-30 04:44:24 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
-2026-06-30 04:44:29 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:29 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:29 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:29 [AWT-EventQueue-0] DEBUG SQL - 
-    select
-        c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
-        lds1_0.artista_fk,
-        lds1_0.data,
-        lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
-    from
-        cidade20241370035 c1_0 
-    left join
-        show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
-    where
-        c1_0.nome=?
-2026-06-30 04:44:29 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Recife]
-2026-06-30 04:44:29 [AWT-EventQueue-0] DEBUG SQL - 
-    update
-        cidade20241370035 
-    set
-        nome=?,
-        versao=? 
-    where
-        id=? 
-        and versao=?
-2026-06-30 04:44:29 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Reci]
-2026-06-30 04:44:29 [AWT-EventQueue-0] TRACE bind - binding parameter (2:BIGINT) <- [1]
-2026-06-30 04:44:29 [AWT-EventQueue-0] TRACE bind - binding parameter (3:INTEGER) <- [2]
-2026-06-30 04:44:29 [AWT-EventQueue-0] TRACE bind - binding parameter (4:BIGINT) <- [0]
-2026-06-30 04:44:29 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
-2026-06-30 04:44:29 [AWT-EventQueue-0] INFO  Util - ----conectar banco - lendo util.propriedades 
-2026-06-30 04:44:29 [AWT-EventQueue-0] INFO  Util - ----sgbd => postgresql, banco => pob, ip => localhost
-2026-06-30 04:44:29 [AWT-EventQueue-0] WARN  pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-06-30 04:44:29 [AWT-EventQueue-0] DEBUG SQL - 
-    select
-        distinct c1_0.id,
-        lds1_0.cidade_fk,
-        lds1_0.id,
-        lds1_0.artista_fk,
-        lds1_0.data,
-        lds1_0.versao,
-        c1_0.nome,
-        c1_0.versao 
-    from
-        cidade20241370035 c1_0 
-    left join
-        show20241370035 lds1_0 
-            on c1_0.id=lds1_0.cidade_fk 
-    order by
-        c1_0.id
-2026-06-30 04:44:29 [AWT-EventQueue-0] INFO  Util - ----desconectar banco
+        a1_0.nomeArtistico=?
+2026-06-30 12:42:33 [AWT-EventQueue-0] TRACE bind - binding parameter (1:VARCHAR) <- [Alok]
+2026-06-30 12:42:33 [AWT-EventQueue-0] INFO  Util - ----desconectar banco

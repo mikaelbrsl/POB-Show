@@ -1,116 +1,83 @@
-/** ********************************
- * IFPB - SI
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- ********************************* */
 package appconsole;
 
+import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-
-import jakarta.persistence.EntityManager;
-import modelo.Artista;
-import modelo.Cidade;
-import modelo.Show;
-import util.Util;
+import requisito.FachadaArtista;
+import requisito.FachadaCidade;
+import requisito.FachadaShow;
 
 public class Cadastrar {
 
-    private EntityManager manager;
-
-    public Cadastrar() {
-        // try {
-        //     Util.conectar();
-        //     manager = Util.getManager();
-        //     manager.getTransaction().begin();
-
-        //     System.out.println("Cadastrando cidades, artistas e shows...");
-
-        //     Cidade c1 = new Cidade("João Pessoa");
-        //     Cidade c2 = new Cidade("Campina Grande");
-        //     Cidade c3 = new Cidade("Recife");
-        //     Cidade c4 = new Cidade("Natal");
-        //     Cidade c5 = new Cidade("Fortaleza");
-
-        //     Artista a1 = new Artista("Alok");
-        //     Artista a2 = new Artista("Anitta");
-        //     Artista a3 = new Artista("Anderson Neiff");
-        //     Artista a4 = new Artista("Ivete Sangalo");
-        //     Artista a5 = new Artista("Luan Santana");
-
-        //     Show s1 = new Show(LocalDate.of(2026, 5, 20), c1, a1);
-        //     a1.adicionar(s1);
-        //     c1.adicionar(s1);
-        //     manager.persist(s1);
-
-        //     Show s2 = new Show(LocalDate.of(2026, 5, 21), c1, a2);
-        //     a2.adicionar(s2);
-        //     c1.adicionar(s2);
-        //     manager.persist(s2);
-
-        //     Show s3 = new Show(LocalDate.of(2026, 6, 10), c2, a1);
-        //     a1.adicionar(s3);
-        //     c2.adicionar(s3);
-        //     manager.persist(s3);
-
-        //     Show s4 = new Show(LocalDate.of(2026, 6, 12), c2, a4);
-        //     a4.adicionar(s4);
-        //     c2.adicionar(s4);
-        //     manager.persist(s4);
-
-        //     Show s5 = new Show(LocalDate.of(2026, 7, 5), c3, a3);
-        //     a3.adicionar(s5);
-        //     c3.adicionar(s5);
-        //     manager.persist(s5);
-
-        //     Show s6 = new Show(LocalDate.of(2026, 7, 5), c1, a2);
-        //     a2.adicionar(s6);
-        //     c1.adicionar(s6);
-        //     manager.persist(s6);
-
-        //     Show s7 = new Show(LocalDate.of(2026, 8, 15), c4, a4);
-        //     a4.adicionar(s7);
-        //     c4.adicionar(s7);
-        //     manager.persist(s7);
-
-        //     Show s8 = new Show(LocalDate.of(2026, 8, 16), c4, a3);
-        //     a3.adicionar(s8);
-        //     c4.adicionar(s8);
-        //     manager.persist(s8);
-
-        //     Show s9 = new Show(LocalDate.of(2026, 8, 17), c2, a5);
-        //     a5.adicionar(s9);
-        //     c2.adicionar(s9);
-        //     manager.persist(s9);
-
-        //     Show s10 = new Show(LocalDate.of(2026, 8, 18), c2, a5);
-        //     a5.adicionar(s10);
-        //     c2.adicionar(s10);
-        //     manager.persist(s10);
-
-        //     Show s11 = new Show(LocalDate.of(2026, 8, 19), c4, a3);
-        //     a3.adicionar(s11);
-        //     manager.persist(s11);
-
-        //     manager.persist(c5);
-
-        //     manager.getTransaction().commit();
-
-        // } catch (Exception e) {
-        //     // Caso algo dê errado em qualquer um, desfaz tudo (Atomicidade)
-        //     if (manager.getTransaction().isActive()) {
-        //         manager.getTransaction().rollback();
-        //     }
-        //     e.printStackTrace();
-        // }
-
-        // Util.desconectar();
-        System.out.println("fim do programa3");
-    }
-
-    // =================================================
     public static void main(String[] args) {
-        new Cadastrar();
+        try {
+            System.out.println("Cadastrando cidades...");
+            FachadaCidade.criarCidade("João Pessoa");
+            FachadaCidade.criarCidade("Campina Grande");
+            FachadaCidade.criarCidade("Recife");
+            FachadaCidade.criarCidade("Natal");
+            FachadaCidade.criarCidade("Fortaleza");
+
+            System.out.println("Cadastrando artistas...");
+            FachadaArtista.criarArtista("Alok");
+            FachadaArtista.criarArtista("Anitta");
+            FachadaArtista.criarArtista("Anderson Neiff");
+            FachadaArtista.criarArtista("Ivete Sangalo");
+            FachadaArtista.criarArtista("Eminem");
+            FachadaArtista.criarArtista("Sabrina Carpenter");
+            FachadaArtista.criarArtista("Olivia Rodrigo");
+
+            System.out.println("Vinculando fotos aos artistas...");
+            atualizarFotoArtista("Alok", "/fotos/alok.jpeg");
+            atualizarFotoArtista("Anitta", "/fotos/anitta.jpg");
+            atualizarFotoArtista("Anderson Neiff", "/fotos/neiff.jpg");
+            atualizarFotoArtista("Ivete Sangalo", "/fotos/ivete_sangalo.jpg");
+            atualizarFotoArtista("Eminem", "/fotos/eminem.jpg");
+            atualizarFotoArtista("Sabrina Carpenter", "/fotos/sabrina_carpenter.jpg");
+            atualizarFotoArtista("Olivia Rodrigo", "/fotos/olivia_rodrigo.jpg");
+
+            System.out.println("Cadastrando shows...");
+            FachadaShow.criarShow(LocalDate.of(2026, 5, 20), "João Pessoa", "Alok");
+            FachadaShow.criarShow(LocalDate.of(2026, 5, 21), "João Pessoa", "Anitta");
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 10), "Campina Grande", "Alok");
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 12), "Campina Grande", "Ivete Sangalo");
+            FachadaShow.criarShow(LocalDate.of(2026, 7, 5), "Recife", "Anderson Neiff");
+            FachadaShow.criarShow(LocalDate.of(2026, 7, 5), "João Pessoa", "Anitta");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 15), "Natal", "Ivete Sangalo");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 16), "Natal", "Anderson Neiff");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 17), "Campina Grande", "Olivia Rodrigo");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 18), "Campina Grande", "Sabrina Carpenter");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 19), "Natal", "Eminem");
+
+            System.out.println("Todos os dados foram semeados com sucesso!");
+
+        } catch (Exception e) {
+            System.err.println("Erro durante a inserção dos dados: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+    
+    private static void atualizarFotoArtista(String nomeArtista, String caminhoFoto) {
+        try (InputStream input = Cadastrar.class.getResourceAsStream(caminhoFoto)) {
+            if (input == null) {
+                System.out.println("Aviso: Foto não encontrada para " + nomeArtista + " no caminho " + caminhoFoto);
+                return;
+            }
+            
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int nRead;
+            byte[] data = new byte[1024];
+            while ((nRead = input.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+            buffer.flush();
+            
+            byte[] bytesFoto = buffer.toByteArray();
+            FachadaArtista.alterarFoto(nomeArtista, bytesFoto);
+            
+        } catch (Exception e) {
+            System.err.println("Não foi possível salvar a foto de " + nomeArtista + ": " + e.getMessage());
+        }
+    }
 }

@@ -24,7 +24,7 @@ public class Cidade {
     private String nome;
 
     @OneToMany(mappedBy = "cidade",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = false
     )
     private List<Show> listaDeShow;
