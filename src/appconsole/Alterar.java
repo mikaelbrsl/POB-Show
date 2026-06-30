@@ -1,66 +1,35 @@
-/** ********************************
+/***********************************
  * IFPB - SI
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
- ********************************* */
+ ***********************************/
 package appconsole;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.NonUniqueResultException;
-import jakarta.persistence.TypedQuery;
-import modelo.Cidade;
 import modelo.Show;
-import util.Util;
+import requisito.FachadaShow;
 
 public class Alterar {
 
-    private EntityManager manager;
-
     public Alterar() {
-        // try {
-        //     Util.conectar();
-        //     manager = Util.getManager();
+        try {
+            System.out.println("Tarefa: alterar cidade de um show.");
 
-        //     System.out.println("tarefa: alterar cidade de um show.");
-        //     manager.getTransaction().begin();
-        //     TypedQuery<Show> q = manager.createQuery(
-        //             "select s from Show s where s.id = 1", Show.class);
-        //     Show s = q.getSingleResult();
+            Show s = FachadaShow.localizarShow(1);
+            System.out.println("Show " + s.getId() + " encontrado.");
 
-        //     System.out.println("Show " + s.getId() + " encontrado.");
+            
+            FachadaShow.alterarShow(s.getId(), s.getRawData(), "Recife", s.getArtista().getNomeArtistico());
+            
+            System.out.println("Cidade do show " + s.getId() + " alterada para Recife.");
 
-        //     Cidade oldCidade = s.getCidade();
+        } catch (Exception e) {
+            System.out.println("Erro ao alterar: " + e.getMessage());
+        }
 
-        //     TypedQuery<Cidade> q2 = manager.createQuery(
-        //             "select c from Cidade c where c.nome = 'Recife' ", Cidade.class
-        //     );
-        //     Cidade newCidade = q2.getSingleResult();
-
-        //     s.setCidade(newCidade);
-        //     oldCidade.remover(s);
-        //     manager.getTransaction().commit();
-        //     System.out.println("Cidade do show " + s.getId() + " alterado para " + newCidade.getNome());
-
-        // } catch (NonUniqueResultException e) {
-        //     manager.getTransaction().rollback();
-        //     System.out.println("encontrou nome duplicado no banco ");
-        // } catch (NoResultException e) {
-        //     manager.getTransaction().rollback();
-        //     System.out.println("nao encontrou nome no banco ");
-        // } catch (Exception e) {
-        //     manager.getTransaction().rollback();
-        //     System.out.println(e.getMessage());
-        // }
-
-        // Util.desconectar();
-
-        System.out.println("fim do programa2");
+        System.out.println("\nFim do programa.");
     }
 
-    // =================================================
     public static void main(String[] args) {
         new Alterar();
     }
-
 }

@@ -1,49 +1,40 @@
-/** ********************************
+/***********************************
  * IFPB - SI
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
- ********************************* */
+ ***********************************/
 package appconsole;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NonUniqueResultException;
-import jakarta.persistence.Query;
-import util.Util;
+import java.util.List;
+import modelo.Show;
+import requisito.FachadaShow;
 
 public class Apagar {
 
-    private EntityManager manager;
-
     public Apagar() {
-        // try {
-        //     Util.conectar();
-        //     manager = Util.getManager();
-        //     manager.getTransaction().begin();
-        //     System.out.println("tarefa: Deletar shows agendados na cidade Natal");
+        try {
+            System.out.println("Tarefa: Deletar shows agendados na cidade Natal");
 
-        //     Query q = manager.createQuery("DELETE FROM Show s WHERE s.cidade.nome = 'Natal'");
-        //     int quant = q.executeUpdate();
+            List<Show> todosShows = FachadaShow.listarShows();
+            int quant = 0;
 
-        //     manager.getTransaction().commit();
-        //     System.out.println(quant + "Shows deletados.");
+            for (Show s : todosShows) {
+                if (s.getCidade() != null && s.getCidade().getNome().equalsIgnoreCase("Natal")) {
+                    FachadaShow.apagarShow(s.getId());
+                    quant++;
+                }
+            }
 
+            System.out.println(quant + " Shows deletados.");
 
+        } catch (Exception e) {
+            System.out.println("Problema ao apagar: " + e.getMessage());
+        }
 
-        // } catch (NonUniqueResultException e) {
-        //     manager.getTransaction().rollback();
-        //     System.out.println("nome duplicado ");
-        // } catch (Exception e) {
-        //     manager.getTransaction().rollback();
-        //     System.out.println("problema:" + e.getMessage());
-        // }
-
-        // Util.desconectar();
-        System.out.println("fim do programa4");
+        System.out.println("\nFim do programa.");
     }
 
-    // =================================================
     public static void main(String[] args) {
         new Apagar();
     }
-
 }

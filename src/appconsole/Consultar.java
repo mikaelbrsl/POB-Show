@@ -1,90 +1,49 @@
-/** ********************************
+/***********************************
  * IFPB - SI
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
- ********************************* */
+ ***********************************/
 package appconsole;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import modelo.Artista;
 import modelo.Show;
-import util.Util;
+import requisito.FachadaShow;
 
 public class Consultar {
 
-    private EntityManager manager;
-
     public Consultar() {
-        // try {
-        //     Util.conectar();
-        //     manager = Util.getManager();
+        try {
+            // --- Consulta 1 ---
+            System.out.println("\n--- Quais os shows na data 05/07/2026 ---");
+            LocalDate dataBusca = LocalDate.of(2026, 7, 5);
+            List<Show> shows = FachadaShow.consultarShowsNaData(dataBusca);
+            for (Show s : shows) {
+                System.out.println(s);
+            }
 
-        //     System.out.println("\n---quais os shows na data 05/07/2026");
+            // --- Consulta 2 ---
+            System.out.println("\n--- Quais os artistas que têm shows na cidade 'João Pessoa' ---");
+            List<Artista> artistasJP = FachadaShow.consultarArtistasNaCidade("João Pessoa");
+            for (Artista a : artistasJP) {
+                System.out.println(a.getNomeArtistico());
+            }
 
-        //     List<Show> shows;
-        //     TypedQuery<Show> q1;
+            // --- Consulta 3 ---
+            System.out.println("\n--- Quais os artistas que têm mais de 1 show na cidade 'Campina Grande' ---");
+            List<Artista> artistasCG = FachadaShow.consultarArtistasComMaisDeNShowsNaCidade("Campina Grande", 1);
+            for (Artista a : artistasCG) {
+                System.out.println(a.getNomeArtistico());
+            }
 
-        //     LocalDate dataBusca = LocalDate.of(2026, 7, 5);
-        //     String selectQueryString = """
-        //     select s from Show s 
-        //     where s.data = :dataShow""";
+        } catch (Exception e) {
+            System.out.println("Erro na consulta: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-        //     q1 = manager.createQuery(selectQueryString, Show.class);
-        //     q1.setParameter("dataShow", dataBusca);
-        //     shows = q1.getResultList();
-
-        //     for (Show s : shows) {
-        //         System.out.println(s);
-        //     }
-
-        //     System.out.println("\n---quais os artistas que vao se apresentar na cidade de nome 'João Pessoa'");
-
-        //     List<Artista> artistas;
-        //     TypedQuery<Artista> q2;
-
-        //     selectQueryString = """
-        //     select a from Artista a
-        //     join a.listaDeShow s
-        //     where s.cidade.nome like :nomeCidade""";
-
-        //     q2 = manager.createQuery(selectQueryString, Artista.class);
-        //     q2.setParameter("nomeCidade", "João Pessoa");
-        //     artistas = q2.getResultList();
-        //     for (Artista a : artistas) {
-        //         System.out.println(a);
-        //     }
-
-        //     System.out.println("\n---quais os artistas que tem mais de 1 shows na cidade 'Campina Grande'");
-
-        //     //implementação pronta - adiantado
-        //     TypedQuery<Artista> q3 = manager.createQuery(
-        //             """
-        //                     select a from Artista a 
-        //                     where ( select count(s) from Show s
-        //                             where s.cidade.nome like :cidade
-        //                             and s.artista = a) > :quantidade
-        //                     """, Artista.class);
-        //     q3.setParameter("cidade", "Campina Grande");
-        //     q3.setParameter("quantidade", 1);
-
-        //     List<Artista> lista = q3.getResultList();
-
-        //     for (Artista a : lista) {
-        //         System.out.println(a);
-        //     }
-
-        // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
-        // }
-
-        // Util.desconectar();
-        System.out.println("\nfim do programa");
+        System.out.println("\nFim do programa.");
     }
-    // =================================================
 
     public static void main(String[] args) {
         new Consultar();

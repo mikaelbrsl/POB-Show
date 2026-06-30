@@ -11,12 +11,15 @@ public class Cadastrar {
 
     public static void main(String[] args) {
         try {
-            System.out.println("Cadastrando cidades...");
+            System.out.println("Cadastrando cidades..");
             FachadaCidade.criarCidade("João Pessoa");
             FachadaCidade.criarCidade("Campina Grande");
-            FachadaCidade.criarCidade("Recife");
-            FachadaCidade.criarCidade("Natal");
-            FachadaCidade.criarCidade("Fortaleza");
+            FachadaCidade.criarCidade("Pilar");
+            FachadaCidade.criarCidade("Guarabira");
+            FachadaCidade.criarCidade("Patos");
+            FachadaCidade.criarCidade("Sousa");
+            FachadaCidade.criarCidade("Cajazeiras");
+            FachadaCidade.criarCidade("Cabedelo");
 
             System.out.println("Cadastrando artistas...");
             FachadaArtista.criarArtista("Alok");
@@ -31,23 +34,41 @@ public class Cadastrar {
             atualizarFotoArtista("Alok", "/fotos/alok.jpeg");
             atualizarFotoArtista("Anitta", "/fotos/anitta.jpg");
             atualizarFotoArtista("Anderson Neiff", "/fotos/neiff.jpg");
-            atualizarFotoArtista("Ivete Sangalo", "/fotos/ivete_sangalo.jpg");
+            atualizarFotoArtista("Ivete Sangalo", "/fotos/ivete.jpg");
             atualizarFotoArtista("Eminem", "/fotos/eminem.jpg");
-            atualizarFotoArtista("Sabrina Carpenter", "/fotos/sabrina_carpenter.jpg");
-            atualizarFotoArtista("Olivia Rodrigo", "/fotos/olivia_rodrigo.jpg");
+            atualizarFotoArtista("Sabrina Carpenter", "/fotos/sabrina.jpg");
+            atualizarFotoArtista("Olivia Rodrigo", "/fotos/olivia.jpg");
 
             System.out.println("Cadastrando shows...");
+            
             FachadaShow.criarShow(LocalDate.of(2026, 5, 20), "João Pessoa", "Alok");
-            FachadaShow.criarShow(LocalDate.of(2026, 5, 21), "João Pessoa", "Anitta");
-            FachadaShow.criarShow(LocalDate.of(2026, 6, 10), "Campina Grande", "Alok");
-            FachadaShow.criarShow(LocalDate.of(2026, 6, 12), "Campina Grande", "Ivete Sangalo");
-            FachadaShow.criarShow(LocalDate.of(2026, 7, 5), "Recife", "Anderson Neiff");
+            FachadaShow.criarShow(LocalDate.of(2026, 5, 26), "Pilar", "Alok");
+            FachadaShow.criarShow(LocalDate.of(2026, 10, 26), "Pilar", "Alok");
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 24), "Cabedelo", "Alok");
+
+            FachadaShow.criarShow(LocalDate.of(2026, 7, 6), "Sousa", "Anitta");
             FachadaShow.criarShow(LocalDate.of(2026, 7, 5), "João Pessoa", "Anitta");
-            FachadaShow.criarShow(LocalDate.of(2026, 8, 15), "Natal", "Ivete Sangalo");
-            FachadaShow.criarShow(LocalDate.of(2026, 8, 16), "Natal", "Anderson Neiff");
-            FachadaShow.criarShow(LocalDate.of(2026, 8, 17), "Campina Grande", "Olivia Rodrigo");
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 15), "Guarabira", "Anitta");
+
+            FachadaShow.criarShow(LocalDate.of(2026, 7, 5), "Patos", "Anderson Neiff");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 12), "Pilar", "Anderson Neiff");
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 23), "Cajazeiras", "Anderson Neiff");
+
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 12), "Campina Grande", "Ivete Sangalo");
+            FachadaShow.criarShow(LocalDate.of(2026, 5, 25), "Pilar", "Ivete Sangalo");
+            FachadaShow.criarShow(LocalDate.of(2026, 6, 22), "Cabedelo", "Ivete Sangalo");
+
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 20), "Guarabira", "Eminem");
+            FachadaShow.criarShow(LocalDate.of(2026, 9, 10), "João Pessoa", "Eminem");
+            FachadaShow.criarShow(LocalDate.of(2026, 9, 15), "Campina Grande", "Eminem");
+
             FachadaShow.criarShow(LocalDate.of(2026, 8, 18), "Campina Grande", "Sabrina Carpenter");
-            FachadaShow.criarShow(LocalDate.of(2026, 8, 19), "Natal", "Eminem");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 16), "Guarabira", "Sabrina Carpenter");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 25), "Patos", "Sabrina Carpenter");
+
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 17), "Campina Grande", "Olivia Rodrigo");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 22), "Sousa", "Olivia Rodrigo");
+            FachadaShow.criarShow(LocalDate.of(2026, 8, 29), "Cajazeiras", "Olivia Rodrigo");
 
             System.out.println("Todos os dados foram semeados com sucesso!");
 
@@ -57,7 +78,6 @@ public class Cadastrar {
         }
     }
 
-    
     private static void atualizarFotoArtista(String nomeArtista, String caminhoFoto) {
         try (InputStream input = Cadastrar.class.getResourceAsStream(caminhoFoto)) {
             if (input == null) {

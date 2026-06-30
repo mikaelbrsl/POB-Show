@@ -48,6 +48,10 @@ public class Show {
         return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
+    public LocalDate getRawData(){
+        return data;
+    }
+
     public void setData(LocalDate data) {
         this.data = data;
     }

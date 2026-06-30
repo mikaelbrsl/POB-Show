@@ -86,12 +86,12 @@ public class TelaArtista {
 		scrollPane.setBounds(21, 39, 751, 147);
 		frame.getContentPane().add(scrollPane);
 
-		table = new JTable() { 
+		table = new JTable() {
 			public boolean isCellEditable(int rowIndex, int vColIndex) {
 				return false;
 			}
 		};
-		
+
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -100,9 +100,9 @@ public class TelaArtista {
 					if (table.getSelectedRow() >= 0) {
 						String nome = (String) table.getValueAt(table.getSelectedRow(), 1);
 						Artista a = FachadaArtista.localizarArtista(nome);
-						
+
 						textField_1.setText(a.getNomeArtistico());
-						
+
 						String showsIds;
 						if (a.getListaDeShow() == null || a.getListaDeShow().isEmpty()) {
 							showsIds = "sem shows";
@@ -114,13 +114,15 @@ public class TelaArtista {
 							showsIds = String.join(", ", ids);
 						}
 						textField_4.setText(showsIds);
-						
+
 						if (a.getFoto() != null) {
 							InputStream in = new ByteArrayInputStream(a.getFoto());
 							buffer = ImageIO.read(in);
 							ImageIcon icon = new ImageIcon(
-									buffer.getScaledInstance(buffer.getWidth(), buffer.getHeight(), Image.SCALE_DEFAULT));
-							icon.setImage(icon.getImage().getScaledInstance(label_1.getWidth(), label_1.getHeight(), 1));
+									buffer.getScaledInstance(buffer.getWidth(), buffer.getHeight(),
+											Image.SCALE_DEFAULT));
+							icon.setImage(
+									icon.getImage().getScaledInstance(label_1.getWidth(), label_1.getHeight(), 1));
 							label_1.setIcon(icon);
 						} else {
 							buffer = null;
@@ -255,11 +257,21 @@ public class TelaArtista {
 		button_6 = new JButton("Limpar foto");
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buffer = null;
-				label_1.setIcon(null);
-				label_1.setText("sem foto");
-				label.setText("");
-				label.setText("Precisa atualizar/criar artista para salvar a foto");
+				if (textField_1.getText().isEmpty()) {
+					label.setText("selecione um artista para limpar a foto");
+					return;
+				}
+				try {
+					String nome = textField_1.getText().trim();
+					FachadaArtista.alterarFoto(nome, null);
+					buffer = null;
+					label_1.setIcon(null);
+					label_1.setText("sem foto");
+					label.setText("foto removida com sucesso");
+
+				} catch (Exception ex) {
+					label.setText("Erro ao limpar foto: " + ex.getMessage());
+				}
 			}
 		});
 		button_6.setBounds(667, 247, 105, 23);
@@ -271,13 +283,13 @@ public class TelaArtista {
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setBounds(93, 213, 253, 20);
 		frame.getContentPane().add(textField_1);
-		
+
 		label_6 = new JLabel("id shows:");
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_6.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		label_6.setBounds(21, 245, 62, 14);
 		frame.getContentPane().add(label_6);
-		
+
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -296,7 +308,7 @@ public class TelaArtista {
 					}
 					String nome = (String) table.getValueAt(linhaSelecionada, 1);
 					Artista a = FachadaArtista.localizarArtista(nome);
-					
+
 					if (a.getListaDeShow() == null || a.getListaDeShow().isEmpty()) {
 						label.setText("este artista não possui shows");
 						return;
@@ -315,7 +327,7 @@ public class TelaArtista {
 							return false;
 						}
 					};
-					
+
 					DefaultTableModel modeloShows = new DefaultTableModel();
 					modeloShows.addColumn("ID Show");
 					modeloShows.addColumn("Data");
@@ -323,7 +335,7 @@ public class TelaArtista {
 
 					for (Show s : a.getListaDeShow()) {
 						String nomeCidade = (s.getCidade() != null) ? s.getCidade().getNome() : "N/A";
-						modeloShows.addRow(new Object[]{ s.getId(), s.getData(), nomeCidade });
+						modeloShows.addRow(new Object[] { s.getId(), s.getData(), nomeCidade });
 					}
 
 					tabelaShows.setModel(modeloShows);
@@ -345,17 +357,17 @@ public class TelaArtista {
 		try {
 			DefaultTableModel model = new DefaultTableModel();
 			table.setModel(model);
-			
+
 			model.addColumn("Id");
 			model.addColumn("Nome Artístico");
 			model.addColumn("Qtd Shows");
-			
+
 			List<Artista> lista = FachadaArtista.listarArtistas();
 			for (Artista a : lista) {
 				int qtdShows = (a.getListaDeShow() != null) ? a.getListaDeShow().size() : 0;
 				model.addRow(new Object[] { a.getId(), a.getNomeArtistico(), qtdShows });
 			}
-		
+
 			label_2.setText("resultados: " + lista.size() + " artistas - selecione uma linha para editar");
 		} catch (Exception erro) {
 			label.setText(erro.getMessage());
@@ -374,7 +386,7 @@ public class TelaArtista {
 			if (escolha == 0) {
 				FachadaArtista.apagarArtista(nome);
 				label.setText("artista excluido");
-				listagem(); 
+				listagem();
 			} else {
 				label.setText("exclusão cancelada");
 			}
@@ -389,11 +401,11 @@ public class TelaArtista {
 			String nome = textField_1.getText().trim();
 
 			FachadaArtista.criarArtista(nome);
-			
+
 			if (buffer != null) {
 				salvarFotoDoBuffer(nome);
 			}
-			
+
 			label.setText("artista criado");
 			listagem();
 		} catch (Exception ex) {
@@ -409,14 +421,14 @@ public class TelaArtista {
 				label.setText("Selecione um artista na tabela primeiro");
 				return;
 			}
-			
+
 			String nomeOriginal = (String) table.getValueAt(linhaSelecionada, 1);
 			String novoNome = textField_1.getText().trim();
 
 			if (!nomeOriginal.equals(novoNome)) {
 				FachadaArtista.alterarArtista(nomeOriginal, novoNome);
 			}
-			
+
 			salvarFotoDoBuffer(novoNome);
 
 			label.setText("artista updated");
@@ -444,7 +456,7 @@ public class TelaArtista {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
 
 	public File selecionarArquivoFoto() {
