@@ -7,51 +7,52 @@ package appconsole;
 
 import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+
 import modelo.Artista;
 import modelo.Cidade;
 import modelo.Show;
-import util.Util;
+import requisito.FachadaArtista;
+import requisito.FachadaCidade;
+import requisito.FachadaShow;
+
 
 public class Listar {
 
-    private EntityManager manager;
+
 
     public Listar() {
-        // try {
-        //     Util.conectar();
-        //     manager = Util.getManager();
+        try {
+            System.out.println("\n----------------------------------------");
+            System.out.println("LISTAGEM DE ARTISTAS");
+            System.out.println("----------------------------------------");
+            List<Artista> resultados1 = FachadaArtista.listarArtistas();
+            for (Artista a : resultados1) {
+                System.out.println(a);
+                System.out.println();
+            }
 
-        //     System.out.println("\nLLISTAGEM DE PESSOAS");
-        //     TypedQuery<Artista> query1 = manager.createQuery("select a from Artista a order by a.id", Artista.class); // order by p.nome
-        //     List<Artista> resultados1 = query1.getResultList();
-        //     for (Artista a : resultados1) {
-        //         System.out.println(a);
-        //         System.out.println();
-        //     }
+            System.out.println("\n----------------------------------------");
+            System.out.println("LISTAGEM DE CIDADES");
+            System.out.println("----------------------------------------");
+            List<Cidade> resultados2 = FachadaCidade.listarCidades();
+            for (Cidade c : resultados2) {
+                System.out.println(c);
+                System.out.println();
+            }
 
-        //     System.out.println("\nLISTAGEM DE CIDADES");
-        //     TypedQuery<Cidade> query2 = manager.createQuery("select c from Cidade c order by c.id", Cidade.class); // order by p.nome
-        //     List<Cidade> resultados2 = query2.getResultList();
-        //     for (Cidade c : resultados2) {
-        //         System.out.println(c);
-        //         System.out.println();
-        //     }
+            System.out.println("\n----------------------------------------");
+            System.out.println("LISTAGEM DE SHOWS");
+            System.out.println("----------------------------------------");
+            List<Show> resultados3 = FachadaShow.listarShows();
+            for (Show s : resultados3) {
+                System.out.println(s);
+                System.out.println();
+            }
 
-        //     System.out.println("\nLISTAGEM DE SHOWS");
-        //     TypedQuery<Show> query3 = manager.createQuery("select s from Show s order by id", Show.class); // order by p.nome
-        //     List<Show> resultados3 = query3.getResultList();
-        //     for (Show s : resultados3) {
-        //         System.out.println(s);
-        //         System.out.println();
-        //     }
-
-        // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
-        // }
-
-        // Util.desconectar();
+        } catch (Exception e) {
+            System.err.println("Erro durante a listagem dos dados: " + e.getMessage());
+            e.printStackTrace();
+        }
         System.out.println("fim do programa");
     }
 

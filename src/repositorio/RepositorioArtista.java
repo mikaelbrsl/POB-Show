@@ -10,7 +10,10 @@ public class RepositorioArtista extends Repositorio<Artista> {
     @Override
     public List<Artista> listar(){
        TypedQuery<Artista> q = Util.getManager().createQuery(
-            "select distinct a from Artista a left join fetch a.listaDeShow order by a.id", Artista.class);
+            "select distinct a from Artista a " +
+            "left join fetch a.listaDeShow s " +
+            "left join fetch s.cidade " +
+            "order by a.id", Artista.class);
         return q.getResultList();
     }
 
@@ -19,7 +22,10 @@ public class RepositorioArtista extends Repositorio<Artista> {
         String nome = (String) chave;
 
         TypedQuery<Artista> q = Util.getManager().createQuery(
-            "select a from Artista a left join fetch a.listaDeShow WHERE a.nomeArtistico = :nome", Artista.class);
+            "select a from Artista a " +
+            "left join fetch a.listaDeShow s " +
+            "left join fetch s.cidade " +
+            "where a.nomeArtistico = :nome", Artista.class);
 
         return q.setParameter("nome", nome).getSingleResultOrNull();
 
